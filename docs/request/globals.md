@@ -21,6 +21,16 @@ You can work with them the same as you would with any readonly array:
 $searchTerm = $request->query['q'] ?? '';
 ```
 
+## JSON Decoding
+
+The `$_POST` superglobal is populated only when PHP can decode the content
+body as `application/x-www-form-urlencoded`. However, it is often the case
+that content bodies are JSON encoded instead.
+
+Thus, as a convenience, if the _Request_ `content-type` is `application/json`,
+then `$request->input` will be an array computed by applying `json_decode()` to
+the content body.
+
 ## Custom Values
 
 You can provide alternative or custom values via the `$globals` constructor
@@ -40,13 +50,3 @@ $request = new Request(
 
 Any values not present in the `$globals` constructor parameter will be provided
 by the existing superglobal.
-
-## JSON Decoding
-
-The `$_POST` superglobal is populated only when PHP can decode the content
-body as `application/x-www-form-urlencoded`. However, it is often the case
-that content bodies are JSON encoded instead.
-
-Thus, as a convenience, if the _Request_ `content-type` is `application/json`,
-then `$request->input` will be an array computed by applying `json_decode()` to
-the content body.
