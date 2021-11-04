@@ -17,6 +17,7 @@
     ],
     "require": {
         "php": ">=8.1",
+        "pds/skeleton": "^1.0",
         "phpunit/phpunit": "^9.5",
         "phpstan/phpstan": "^1.0"
     },
