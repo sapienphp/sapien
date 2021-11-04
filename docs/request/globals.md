@@ -13,7 +13,7 @@ superglobals:
 
 - `array $server`: A copy of `$_SERVER`.
 
-You can work with them the same as you would any array:
+You can work with them the same as you would with any readonly array:
 
 ```php
 // get the `?q=` value, defaulting to an empty string
@@ -26,10 +26,10 @@ parameter:
 ```php
 $request = new Request(
     globals: [
-        '_COOKIES' => [...],
+        '_COOKIE' => [...],
         '_FILES' => [...],
-        '_INPUT' => [...],
-        '_QUERY' => [...],
+        '_GET' => [...],
+        '_POST' => [...],
         '_SERVER' => [...],
     ]
 );

@@ -23,7 +23,7 @@ assert($request->headers['content-length'] === '123');
 assert($request->headers['content-type'] === 'text/plain');
 ```
 
-You can work with `$headers` as you would any array.
+You can work with `$headers` as you would with any readonly array:
 
 ```php
 $fooBarBaz = $request->headers['foo-bar-baz'] ?? null;
