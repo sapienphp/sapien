@@ -50,16 +50,21 @@ class Request extends ValueObject
         array $url = null,
         Content|string|null $content = null,
     ) {
-        $this->cookies = $this->newGlobal($globals['_COOKIE'] ?? $_COOKIE);
-        $this->files = $this->newGlobal($globals['_FILES'] ?? $_FILES);
-        $this->input = $this->newGlobal($globals['_POST'] ?? $_POST);
-        $this->query = $this->newGlobal($globals['_GET'] ?? $_GET);
         $this->server = $this->newGlobal($globals['_SERVER'] ?? $_SERVER);
-        $this->uploads = $this->newUploads();
         $this->headers = $this->newHeaders();
         $this->method = $this->newMethod($method);
         $this->url = $this->newUrl($url);
         $this->content = $this->newContent($content);
+
+        $this->cookies = $this->newGlobal($globals['_COOKIE'] ?? $_COOKIE);
+        $this->files = $this->newGlobal($globals['_FILES'] ?? $_FILES);
+        $this->input = $this->newGlobal(
+            $this->content->getParsedBody()
+            ?? $globals['_POST']
+            ?? $_POST
+        );
+        $this->uploads = $this->newUploads();
+        $this->query = $this->newGlobal($globals['_GET'] ?? $_GET);
     }
 
     public function __get(string $key) : mixed

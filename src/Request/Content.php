@@ -100,9 +100,30 @@ class Content extends ValueObject
     public function __get(string $key) : mixed
     {
         if ($key === 'body') {
-            return $this->body ?? file_get_contents('php://input');
+            return $this->getBody();
         }
 
         return parent::__get($key);
+    }
+
+    protected function getBody() : string
+    {
+        return $this->body ?? (string) file_get_contents('php://input');
+    }
+
+    public function getParsedBody() : ?array
+    {
+        if (strtolower($this->type ?? '') !== 'application/json') {
+            return null;
+        }
+
+        $result = json_decode(
+            $this->getBody(),
+            true,
+            512,
+            JSON_BIGINT_AS_STRING
+        );
+
+        return is_array($result) ? $result : null;
     }
 }

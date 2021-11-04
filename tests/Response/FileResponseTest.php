@@ -32,4 +32,12 @@ class FileResponseTest extends \PHPUnit\Framework\TestCase
         $this->expectExceptionMessage('Sapien\Response\FileResponse content must be string or SplFileObject');
         $response->setContent(null);
     }
+
+    public function testSendWithoutContent()
+    {
+        $response = new FileResponse();
+        $this->expectException(Exception::CLASS);
+        $this->expectExceptionMessage('Sapien\Response\FileResponse has no file to send');
+        $response->send();
+    }
 }

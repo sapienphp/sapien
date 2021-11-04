@@ -67,5 +67,3 @@ Protected properties in child classes will automatically be available via magic
 The methods `__set()`, `__isset()`, and `__unset()` are declared `final` and so
 cannot be overridden. This is to help prevent subversion of the readonly nature
 of _Request_.
-
-

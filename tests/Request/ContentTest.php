@@ -70,4 +70,15 @@ class ContentTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('text/plain', $request->content->type);
         $this->assertNull($request->content->charset);
     }
+
+    public function testParsedBodyJson()
+    {
+        $_SERVER = ['CONTENT_TYPE' => 'application/json;charset=utf-8'];
+        $expect = ['foo' => 'bar'];
+        $request = new Request(content: json_encode($expect));
+        $this->assertSame($expect, $request->input);
+
+        $request = new Request(content: 'null');
+        $this->assertSame([], $request->input);
+    }
 }
