@@ -1,0 +1,15 @@
+{
+    "title": "Request",
+    "content": [
+        "overview.md",
+        "globals.md",
+        "uploads.md",
+        "method.md",
+        "url.md",
+        "headers.md",
+        "accept.md",
+        "forward.md",
+        "content.md",
+        "extending.md"
+    ]
+}

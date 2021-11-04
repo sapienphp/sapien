@@ -1,0 +1,15 @@
+{
+    "title": "Response",
+    "content": [
+        "overview.md",
+        "version.md",
+        "code.md",
+        "headers.md",
+        "cookies.md",
+        "callbacks.md",
+        "content.md",
+        "sending.md",
+        "special.md",
+        "extending.md"
+    ]
+}
