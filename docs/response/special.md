@@ -42,9 +42,6 @@ $fileResponse->setFile(
 In any case, you may always modify the _FileResponse_ values after
 `setContent()` or `setFile()`.
 
-Finally, when you actually `send()` it, the _FileResponse_ will `fopen()` the
-file, `fpassthru()` it, and `fclose()` it again.
-
 ## JsonResponse
 
 The _JsonResponse_ is customized for sending back JSON content.

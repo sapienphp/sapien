@@ -25,7 +25,7 @@ extension:
 
 - `public function setContent(mixed $content) : void`
 - `public function send() : void`
-- `public sendContent() : void`
+- `public function sendContent() : void`
 
 You may override them at will (though of course you cannot change the
 signatures). In general:

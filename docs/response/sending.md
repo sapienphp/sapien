@@ -36,8 +36,8 @@ If the content is ...
 
 - **a non-string callable**, then `sendContent()` will invoke it. Further,
   `sendContent()` will echo the return value (if any) from that invocation. This
-  means the callable object may emit output itself, or it may return a string
-  for `sendContent()` to echo, or do both.
+  means the callable may emit output itself, or it may return a string for
+  `sendContent()` to echo, or do both.
 
 - **an iterable**, then `sendContent()` will `foreach()` through it, and echo
   each value.
