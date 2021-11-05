@@ -1,8 +1,9 @@
 <?php
 namespace Sapien\Request;
 
-use Sapien\Request;
 use Sapien\Exception;
+use Sapien\Request;
+use Sapien\Request\Header\Accept;
 
 class AcceptTest extends \PHPUnit\Framework\TestCase
 {

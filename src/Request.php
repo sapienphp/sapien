@@ -3,18 +3,18 @@ declare(strict_types=1);
 
 namespace Sapien;
 
-use Sapien\Request\Accept;
-use Sapien\Request\Authorization;
 use Sapien\Request\Content;
-use Sapien\Request\Forwarded;
+use Sapien\Request\Header\Accept;
+use Sapien\Request\Header\Authorization;
+use Sapien\Request\Header\Forwarded;
+use Sapien\Request\Header\XForwarded;
 use Sapien\Request\Method;
 use Sapien\Request\Upload;
 use Sapien\Request\Url;
-use Sapien\Request\XForwarded;
 
 /**
  * @property-read Accept $accept
- * @property-read Authorization $authorization
+ * @property-read Authorization\Scheme $authorization
  * @property-read Forwarded[] $forwarded
  * @property-read XForwarded $xForwarded
  */

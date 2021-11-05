@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Sapien\Request\Authorization;
+namespace Sapien\Request\Header\Authorization;
 
 class None extends Scheme
 {

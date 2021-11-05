@@ -4,7 +4,7 @@ The _Request_ object has two readonly properties related to forwarding.
 
 ## `$xForwarded`
 
-The `$xForwarded` property is an instance of _Sapien\Request\XForwarded_.
+The `$xForwarded` property is an instance of _Sapien\Request\Header\XForwarded_.
 
 The _XForwarded_ object has these readonly properties:
 
@@ -22,7 +22,7 @@ The _XForwarded_ object has these readonly properties:
 
 ## `$forwarded`
 
-The `$forwarded` property is a readonly array of _Sapien\Request\Forwarded_
+The `$forwarded` property is a readonly array of _Sapien\Request\Header\Forwarded_
 objects.
 
 Each _Forwarded_ object has the following readonly properties computed from the

@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Sapien\Request\Authorization\Scheme;
+namespace Sapien\Request\Header\Authorization\Scheme;
 
-use Sapien\Request\Authorization\Scheme;
+use Sapien\Request\Header\Authorization\Scheme;
 
 class Basic extends Scheme
 {

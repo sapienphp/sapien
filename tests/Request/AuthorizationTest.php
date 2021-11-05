@@ -3,7 +3,7 @@ namespace Sapien\Request;
 
 use Sapien\Request;
 use Sapien\Exception;
-use Sapien\Request\Authorization;
+use Sapien\Request\Header\Authorization;
 
 class AuthorizationTest extends \PHPUnit\Framework\TestCase
 {

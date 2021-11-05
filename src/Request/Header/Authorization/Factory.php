@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Sapien\Request\Authorization;
+namespace Sapien\Request\Header\Authorization;
 
 use Sapien\Request;
 
@@ -18,7 +18,7 @@ class Factory
         $pos = strpos($header, ' ');
         $scheme = trim(substr($header, 0, $pos));
         $credentials = trim(substr($header, $pos + 1));
-        $class = 'Sapien\\Request\\Authorization\\Scheme\\'
+        $class = 'Sapien\\Request\\Header\\Authorization\\Scheme\\'
             . ucfirst(strtolower($scheme));
 
         if (class_exists($class)) {

@@ -1,6 +1,6 @@
 # Accept
 
-The _Request_ `$accept` property is a _Sapien\Request\Accept_ object.
+The _Request_ `$accept` property is a _Sapien\Request\Header\Accept_ object.
 
 The _Accept_ object has these readonly array properties:
 

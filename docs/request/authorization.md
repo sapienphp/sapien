@@ -1,7 +1,7 @@
 # Authorization
 
 The _Request_ `$authorization` property is
-a _Sapien\Request\Authorization\Scheme_ object.
+a _Sapien\Request\Header\Authorization\Scheme_ object.
 
 The _Scheme_ class itself is a marker, and may be one of several
 different implementations. The implementation is based on the scheme indicated

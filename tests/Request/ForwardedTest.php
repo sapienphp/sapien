@@ -3,6 +3,8 @@ namespace Sapien\Request;
 
 use Sapien\Request;
 use Sapien\Exception;
+use Sapien\Request\Header\Forwarded;
+use Sapien\Request\Header\XForwarded;
 
 class ForwardedTest extends \PHPUnit\Framework\TestCase
 {
@@ -14,18 +16,18 @@ class ForwardedTest extends \PHPUnit\Framework\TestCase
 
         $request = new Request();
         $expect = [
-            new Request\Forwarded(
+            new Forwarded(
                 for: '[2001:db8:cafe::17]:4711',
             ),
-            new Request\Forwarded(
+            new Forwarded(
                 for: "192.0.2.60",
                 proto: "http",
                 by: "203.0.113.43",
             ),
-            new Request\Forwarded(
+            new Forwarded(
                 for: "192.0.2.43",
             ),
-            new Request\Forwarded(
+            new Forwarded(
             ),
         ];
         $this->assertEquals($expect, $request->forwarded);
