@@ -59,8 +59,8 @@ class Request extends ValueObject
         $this->cookies = $this->newGlobal($globals['_COOKIE'] ?? $_COOKIE);
         $this->files = $this->newGlobal($globals['_FILES'] ?? $_FILES);
         $this->input = $this->newGlobal(
-            $this->content->getParsedBody()
-            ?? $globals['_POST']
+            $globals['_POST']
+            ?? $this->content->getParsedBody()
             ?? $_POST
         );
         $this->uploads = $this->newUploads();
