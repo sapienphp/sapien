@@ -12,8 +12,8 @@ jobs:
     runs-on: ${{ matrix.operating-system }}
     strategy:
       matrix:
-        operating-system: [ubuntu-latest, windows-latest, macOS-latest]
-        php-versions: ['8.1']
+        operating-system: [ubuntu-latest, windows-latest]
+        php-versions: ['8.1', '8.2']
     name: PHP ${{ matrix.php-versions }} Test on ${{ matrix.operating-system }}
 
     steps:
@@ -25,6 +25,7 @@ jobs:
         php-version: ${{ matrix.php-versions }}
         extensions: intl #optional
         ini-values: "post_max_size=256M" #optional
+        coverage: xdebug
     - name: Check PHP Version
       run: php -v
 
