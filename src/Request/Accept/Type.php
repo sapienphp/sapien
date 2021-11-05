@@ -3,6 +3,6 @@ declare(strict_types=1);
 
 namespace Sapien\Request\Accept;
 
-class Type extends AcceptValue
+class Type extends Value
 {
 }

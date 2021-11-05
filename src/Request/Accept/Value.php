@@ -6,7 +6,7 @@ namespace Sapien\Request\Accept;
 use Sapien\Request;
 use Sapien\ValueObject;
 
-class AcceptValue extends ValueObject
+class Value extends ValueObject
 {
     static public function newArray(?string $header = null) : array
     {

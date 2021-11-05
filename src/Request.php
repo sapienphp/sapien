@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Sapien;
 
 use Sapien\Request\Accept;
+use Sapien\Request\Authorization;
 use Sapien\Request\Content;
 use Sapien\Request\Forwarded;
 use Sapien\Request\Method;
@@ -13,12 +14,15 @@ use Sapien\Request\XForwarded;
 
 /**
  * @property-read Accept $accept
+ * @property-read Authorization $authorization
  * @property-read Forwarded[] $forwarded
  * @property-read XForwarded $xForwarded
  */
 class Request extends ValueObject
 {
     private readonly Accept $accept;
+
+    private readonly Authorization\Scheme $authorization;
 
     public readonly Content $content;
 
@@ -84,6 +88,11 @@ class Request extends ValueObject
     protected function newAccept() : Accept
     {
         return Accept::new($this);
+    }
+
+    protected function newAuthorization() : Authorization\Scheme
+    {
+        return Authorization\Factory::new($this);
     }
 
     protected function newContent(mixed $content) : Content

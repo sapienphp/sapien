@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Sapien\Request\Accept;
 
-class Language extends AcceptValue
+class Language extends Value
 {
     static protected function parse(string $string) : array
     {

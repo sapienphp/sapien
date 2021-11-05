@@ -23,8 +23,9 @@ The _Request_ provides public readonly properties related to these areas:
 - [request method](./method.md)
 - [request url](./url.md)
 - [headers](./headers.md)
-    - [accept headers](./accept.md)
-    - [forwarded and x-forwarded headers](./forward.md)
+    - [`accept*`](./accept.md)
+    - [`authorization`](./authorization.md)
+    - [`forwarded` and `x-forwarded`](./forward.md)
 - [content](./content)
 
 You can also [extend the _Request_](./extending.md) for your own purposes.
