@@ -38,6 +38,7 @@ class AuthorizationTest extends \PHPUnit\Framework\TestCase
             'cnonce="0a4f113b"',
             'response="6629fae49393a05397450978507c4ef1"',
             'opaque="5ccc069c403ebaf9f0171e9517f40e41"',
+            'userhash=false',
         ];
         $_SERVER['HTTP_AUTHORIZATION'] = 'Digest ' . implode(', ', $parts);
         $request = new Request();
@@ -47,7 +48,7 @@ class AuthorizationTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('dcd98b7102dd2f0e8b11d0f600bfb0c093', $request->authorization->nonce);
         $this->assertSame('/foo/bar', $request->authorization->uri);
         $this->assertSame('auth', $request->authorization->qop);
-        $this->assertSame('00000001', $request->authorization->nc);
+        $this->assertSame(1, $request->authorization->nc);
         $this->assertSame('0a4f113b', $request->authorization->cnonce);
         $this->assertSame('6629fae49393a05397450978507c4ef1', $request->authorization->response);
         $this->assertSame('5ccc069c403ebaf9f0171e9517f40e41', $request->authorization->opaque);

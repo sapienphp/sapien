@@ -9,7 +9,7 @@ class Digest extends Scheme
 {
     public readonly ?string $cnonce;
 
-    public readonly ?string $nc;
+    public readonly ?int $nc;
 
     public readonly ?string $nonce;
 
@@ -23,7 +23,7 @@ class Digest extends Scheme
 
     public readonly ?string $uri;
 
-    public readonly ?string $userhash;
+    public readonly ?bool $userhash;
 
     public readonly ?string $username;
 
@@ -31,7 +31,7 @@ class Digest extends Scheme
     {
         parent::__construct();
 
-        $default = [
+        $args = [
             'cnonce' => null,
             'nc' => null,
             'nonce' => null,
@@ -52,15 +52,22 @@ class Digest extends Scheme
         );
 
         foreach ($matches as $param) {
-            $prop = $param[1];
-            if (property_exists($this, $prop)) {
-                $this->$prop = $param[3] ? $param[3] : $param[4];
-                unset($default[$prop]);
+            $key = $param[1];
+            if (array_key_exists($key, $args)) {
+                $args[$key] = $param[3] ? $param[3] : $param[4];
             }
         }
 
-        foreach ($default as $prop => $value) {
-            $this->$prop = $value;
+        if (isset($args['nc'])) {
+            $args['nc'] = ctype_digit($args['nc']) ? (int) $args['nc'] : null;
+        }
+
+        if (isset($args['userhash'])) {
+            $args['userhash'] = (strtolower($args['userhash']) === 'true');
+        }
+
+        foreach ($args as $key => $val) {
+            $this->$key = $val;
         }
     }
 }

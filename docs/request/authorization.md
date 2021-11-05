@@ -35,14 +35,14 @@ The _Digest_ scheme presents these readonly properties computed from
 the _Request_ `$headers['authorization']` credentials:
 
 - `?string $cnonce`: The client nonce.
-- `?string $nc`: The nonce count.
+- `?int $nc`: The nonce count.
 - `?string $nonce`: The server nonce.
 - `?string $opaque`: The server opaque string.
 - `?string $qop`: The quality of protected.
 - `?string $realm`: The authentication realm.
 - `?string $response`: The client response.
 - `?string $uri`: The effective request URI.
-- `?string $userhash`: Whether or not the username has been hashed.
+- `?bool $userhash`: Whether or not the username has been hashed.
 - `?string $username`: The username in the realm.
 
 ## Generic
