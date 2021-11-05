@@ -9,10 +9,9 @@ by the _Request_ `$headers['authorization']` scheme.
 
 > **Warning:**
 >
-> The _Authorization\Scheme_ objects **do not** indicate a user has been
-> authenticated or authorized. They only carry the structured header values
-> provided by the client. Use them to perform your own authentication and
-> authorization logic.
+> The _Scheme_ objects **do not** indicate a user has been authenticated or
+> authorized. They only carry the untrusted user inputs provided by the client.
+> Use them to perform your own authentication and authorization logic.
 
 ## Basic
 
