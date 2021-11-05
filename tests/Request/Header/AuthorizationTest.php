@@ -1,9 +1,8 @@
 <?php
-namespace Sapien\Request;
+namespace Sapien\Request\Header;
 
 use Sapien\Request;
 use Sapien\Exception;
-use Sapien\Request\Header\Authorization;
 
 class AuthorizationTest extends \PHPUnit\Framework\TestCase
 {

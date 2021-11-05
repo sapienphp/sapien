@@ -1,10 +1,8 @@
 <?php
-namespace Sapien\Request;
+namespace Sapien\Request\Header;
 
 use Sapien\Request;
 use Sapien\Exception;
-use Sapien\Request\Header\Forwarded;
-use Sapien\Request\Header\XForwarded;
 
 class ForwardedTest extends \PHPUnit\Framework\TestCase
 {

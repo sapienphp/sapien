@@ -1,5 +1,5 @@
 <?php
-namespace Sapien\Request;
+namespace Sapien\Request\Header;
 
 use Sapien\Request;
 use Sapien\Exception;
