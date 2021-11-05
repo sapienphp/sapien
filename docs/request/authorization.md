@@ -37,7 +37,7 @@ the _Request_ `$headers['authorization']` credentials:
 - `?int $nc`: The nonce count.
 - `?string $nonce`: The server nonce.
 - `?string $opaque`: The server opaque string.
-- `?string $qop`: The quality of protected.
+- `?string $qop`: The quality of protection.
 - `?string $realm`: The authentication realm.
 - `?string $response`: The client response.
 - `?string $uri`: The effective request URI.
