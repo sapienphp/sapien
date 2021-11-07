@@ -22,7 +22,7 @@ The _XForwarded_ object has these readonly properties:
 
 ## `$forwarded`
 
-The `$forwarded` property is a readonly array of _Sapien\Request\Header\Forwarded_
+The `$forwarded` property is a readonly _ValueCollection_ of _Sapien\Request\Header\Forwarded_
 objects.
 
 Each _Forwarded_ object has the following readonly properties computed from the

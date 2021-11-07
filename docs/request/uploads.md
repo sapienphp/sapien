@@ -1,6 +1,6 @@
 # Uploads
 
-The _Request_ `$uploads` property is an array of _Sapien\Request\Upload_ objects.
+The _Request_ `$uploads` property is a _ValueCollection_ of _Sapien\Request\Upload_ objects.
 
 Each _Upload_ object is composed of these public readonly properties:
 

@@ -2,21 +2,21 @@
 
 The _Request_ `$accept` property is a _Sapien\Request\Header\Accept_ object.
 
-The _Accept_ object has these readonly array properties:
+The _Accept_ object has these readonly _ValueCollection_ properties:
 
-- `array $types`: An array of _Accept\Type_ objects computed from
+- `TypeCollection $types`: A collection of _Accept\Type_ objects computed from
   `$header['accept']`.
 
-- `array $charsets`: An array of _Accept\Charset_ objects computed from
+- `CharsetCollection $charsets`: A collection of _Accept\Charset_ objects computed from
   `$header['accept-charset']`.
 
-- `array $encodings`: An array of _Accept\Encoding_ objects computed from
+- `EncodingCollection $encodings`: A collection of _Accept\Encoding_ objects computed from
   `$header['accept-encoding']`.
 
-- `array $languages`: An array of _Accept\Language_ objects computed from
+- `LanguageCollection $languages`: A collection of _Accept\Language_ objects computed from
   `$header['accept-language']`.
 
-Each array is sorted from highest `q` parameter value to lowest.
+Each collection is sorted from highest `q` parameter value to lowest.
 
 Each _Accept\\*_ object has these readonly properties:
 
