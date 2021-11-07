@@ -59,6 +59,11 @@ class AuthorizationTest extends \PHPUnit\Framework\TestCase
         $request = new Request();
         $this->assertInstanceOf(Authorization\None::CLASS, $request->authorization);
         $this->assertTrue($request->authorization->is(null));
+
+        $_SERVER['HTTP_AUTHORIZATION'] = '----';
+        $request = new Request();
+        $this->assertInstanceOf(Authorization\None::CLASS, $request->authorization);
+        $this->assertTrue($request->authorization->is(null));
     }
 
     public function testGeneric()

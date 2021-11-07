@@ -19,6 +19,7 @@ class ValueCollectionTest extends \PHPUnit\Framework\TestCase
             $this->assertSame($expect[$key], $fakeValueCollection[$key]);
         }
 
+        $this->assertSame(3, count($fakeValueCollection));
         $this->assertFalse(isset($fakeValueCollection['nonesuch']));
         $this->assertFalse($fakeValueCollection->isEmpty());
     }
