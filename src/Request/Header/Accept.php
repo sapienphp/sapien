@@ -11,18 +11,18 @@ class Accept extends ValueObject
     static public function new(Request $request) : static
     {
         return new static(
-            types: Accept\Type::newArray($request->headers['accept'] ?? null),
-            charsets: Accept\Charset::newArray($request->headers['accept-charset'] ?? null),
-            encodings: Accept\Encoding::newArray($request->headers['accept-encoding'] ?? null),
-            languages: Accept\Language::newArray($request->headers['accept-language'] ?? null),
+            types: Accept\TypeCollection::new($request->headers['accept'] ?? null),
+            charsets: Accept\CharsetCollection::new($request->headers['accept-charset'] ?? null),
+            encodings: Accept\EncodingCollection::new($request->headers['accept-encoding'] ?? null),
+            languages: Accept\LanguageCollection::new($request->headers['accept-language'] ?? null),
         );
     }
 
     public function __construct(
-        public readonly array $types,
-        public readonly array $charsets,
-        public readonly array $encodings,
-        public readonly array $languages,
+        public readonly Accept\TypeCollection $types,
+        public readonly Accept\CharsetCollection $charsets,
+        public readonly Accept\EncodingCollection $encodings,
+        public readonly Accept\LanguageCollection $languages,
     ) {
     }
 }

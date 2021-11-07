@@ -31,7 +31,6 @@ abstract class ValueObject
     public function asArray() : array
     {
         $vars = get_object_vars($this);
-        unset($vars['initialized']);
         return $vars;
     }
 }

@@ -6,10 +6,10 @@ namespace Sapien;
 use Sapien\Request\Content;
 use Sapien\Request\Header\Accept;
 use Sapien\Request\Header\Authorization;
-use Sapien\Request\Header\Forwarded;
+use Sapien\Request\Header\ForwardedCollection;
 use Sapien\Request\Header\XForwarded;
 use Sapien\Request\Method;
-use Sapien\Request\Upload;
+use Sapien\Request\UploadCollection;
 use Sapien\Request\Url;
 
 /**
@@ -30,7 +30,7 @@ class Request extends ValueObject
 
     public readonly array $files;
 
-    private readonly array $forwarded;
+    private readonly ForwardedCollection $forwarded;
 
     public readonly array $headers;
 
@@ -42,7 +42,7 @@ class Request extends ValueObject
 
     public readonly array $server;
 
-    public readonly array $uploads;
+    public readonly UploadCollection $uploads;
 
     public readonly Url $url;
 
@@ -100,9 +100,9 @@ class Request extends ValueObject
         return Content::new($this, $content);
     }
 
-    protected function newForwarded() : array
+    protected function newForwarded() : ForwardedCollection
     {
-        return Forwarded::newArray($this);
+        return ForwardedCollection::new($this);
     }
 
     protected function newHeaders() : array
@@ -166,9 +166,9 @@ class Request extends ValueObject
         return Method::new($this, $method);
     }
 
-    protected function newUploads() : array
+    protected function newUploads() : UploadCollection
     {
-        return Upload::newArray($this);
+        return UploadCollection::new($this);
     }
 
     protected function newUrl(?array $url) : Url

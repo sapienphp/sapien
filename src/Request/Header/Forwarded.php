@@ -8,25 +8,7 @@ use Sapien\ValueObject;
 
 class Forwarded extends ValueObject
 {
-    static public function newArray(Request $request) : array
-    {
-        $header = $request->headers['forwarded'] ?? null;
-
-        if ($header === null) {
-            return [];
-        }
-
-        $proxies = [];
-        $forwards = explode(',', $header);
-
-        foreach ($forwards as $forward) {
-            $proxies[] = static::new($forward);
-        }
-
-        return $proxies;
-    }
-
-    static protected function new(string $string) : static
+    static public function new(string $string) : static
     {
         $forward = [];
         $parts = explode(';', $string);

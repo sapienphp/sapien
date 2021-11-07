@@ -4,23 +4,24 @@ declare(strict_types=1);
 namespace Sapien\Request\Header\Accept;
 
 use Sapien\Request;
-use Sapien\ValueObject;
+use Sapien\ValueCollection;
 
-class Value extends ValueObject
+abstract class AcceptCollection extends ValueCollection
 {
-    static public function newArray(?string $header = null) : array
+    static public function new(?string $header = null) : static
     {
         if ($header === null) {
-            return [];
+            return new static();
         }
 
-        $accepts = static::parse($header);
+        $class = substr(get_called_class(), 0, -10);
+        $items = static::parse($header);
 
-        foreach ($accepts as $key => $args) {
-            $accepts[$key] = new static(...$args);
+        foreach ($items as $key => $args) {
+            $items[$key] = new $class(...$args);
         }
 
-        return $accepts;
+        return new static($items);
     }
 
     static protected function parse(string $header) : array
@@ -67,22 +68,15 @@ class Value extends ValueObject
         krsort($buckets);
 
         // flatten the buckets back into the return array
-        $array = [];
+        $items = [];
 
         foreach ($buckets as $q => $bucket) {
             foreach ($bucket as $spec) {
-                $array[] = $spec;
+                $items[] = $spec;
             }
         }
 
         // done
-        return $array;
-    }
-
-    public function __construct(
-        public readonly string $value,
-        public readonly string $quality,
-        public readonly array $params,
-    ) {
+        return $items;
     }
 }

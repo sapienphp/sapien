@@ -10,7 +10,7 @@ class AcceptTest extends \PHPUnit\Framework\TestCase
     {
         $_SERVER['HTTP_ACCEPT'] = 'application/xml;q=0.8, application/json;foo=bar, text/*;q=0.2, */*;q=0.1';
         $request = new Request();
-        $expect = [
+        $expect = new Accept\TypeCollection([
             new Accept\Type(
                 value: 'application/json',
                 quality: '1.0',
@@ -33,15 +33,15 @@ class AcceptTest extends \PHPUnit\Framework\TestCase
                 quality: '0.1',
                 params: [],
             ),
-        ];
-          $this->assertEquals($expect, $request->accept->types);
+        ]);
+        $this->assertEquals($expect, $request->accept->types);
     }
 
     public function testCharsets()
     {
         $_SERVER['HTTP_ACCEPT_CHARSET'] = 'iso-8859-5;q=0.8, unicode-1-1';
         $request = new Request();
-        $expect = [
+        $expect = new Accept\CharsetCollection([
             new Accept\Charset(
                 value: 'unicode-1-1',
                 quality: '1.0',
@@ -52,7 +52,7 @@ class AcceptTest extends \PHPUnit\Framework\TestCase
                 quality: '0.8',
                 params: [],
             ),
-            ];
+        ]);
         $this->assertEquals($expect, $request->accept->charsets);
     }
 
@@ -60,7 +60,7 @@ class AcceptTest extends \PHPUnit\Framework\TestCase
     {
         $_SERVER['HTTP_ACCEPT_ENCODING'] = 'compress;q=0.5, gzip;q=1.0';
         $request = new Request();
-        $expect = [
+        $expect = new Accept\EncodingCollection([
             new Accept\Encoding(
                 value: 'gzip',
                 quality: '1.0',
@@ -71,7 +71,7 @@ class AcceptTest extends \PHPUnit\Framework\TestCase
                 quality: '0.5',
                 params: [],
             ),
-        ];
+        ]);
         $this->assertEquals($expect, $request->accept->encodings);
     }
 
@@ -79,7 +79,7 @@ class AcceptTest extends \PHPUnit\Framework\TestCase
     {
         $_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'en-US, en-GB, en, *';
         $request = new Request();
-        $expect = [
+        $expect = new Accept\LanguageCollection([
             new Accept\Language(
                 value: 'en-US',
                 quality: '1.0',
@@ -108,7 +108,7 @@ class AcceptTest extends \PHPUnit\Framework\TestCase
                 type: '*',
                 subtype: NULL,
             ),
-        ];
+        ]);
         $this->assertEquals($expect, $request->accept->languages);
     }
 
@@ -116,6 +116,6 @@ class AcceptTest extends \PHPUnit\Framework\TestCase
     {
         $_SERVER['HTTP_ACCEPT'] = '';
         $request = new Request();
-        $this->assertEmpty($request->accept->types);
+        $this->assertTrue($request->accept->types->isEmpty());
     }
 }

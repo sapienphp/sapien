@@ -13,7 +13,7 @@ class ForwardedTest extends \PHPUnit\Framework\TestCase
         ];
 
         $request = new Request();
-        $expect = [
+        $expect = new ForwardedCollection([
             new Forwarded(
                 for: '[2001:db8:cafe::17]:4711',
             ),
@@ -27,7 +27,7 @@ class ForwardedTest extends \PHPUnit\Framework\TestCase
             ),
             new Forwarded(
             ),
-        ];
+        ]);
         $this->assertEquals($expect, $request->forwarded);
     }
 
@@ -35,6 +35,6 @@ class ForwardedTest extends \PHPUnit\Framework\TestCase
     {
         $_SERVER = [];
         $request = new Request();
-        $this->assertEmpty($request->forwarded);
+        $this->assertTrue($request->forwarded->isEmpty());
     }
 }
