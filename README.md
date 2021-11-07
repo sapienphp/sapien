@@ -3,8 +3,8 @@
 This package provides server API (SAPI) request and response objects for PHP
 8.1:
 
-- _Sapien\Request_, composed of readonly copies of PHP superglobals and some other
-   commonly-used values
+- _Sapien\Request_, composed of readonly copies of PHP superglobals, and some
+   other commonly-used values such as Accept, Forwarded, and Upload collections
 
 - _Sapien\Response_, a wrapper around (and buffer for) response-related PHP
    functions
