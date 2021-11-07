@@ -17,7 +17,7 @@ abstract class ValueObject
         throw new Exception("{$class}::\${$key} does not exist.");
     }
 
-    final public function __isset(string $key) : bool
+    public function __isset(string $key) : bool
     {
         return false;
     }

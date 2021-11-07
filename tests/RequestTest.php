@@ -19,14 +19,17 @@ class RequestTest extends \PHPUnit\Framework\TestCase
         $request = new Request();
         $this->assertInstanceOf(Request::CLASS, $request);
         $this->assertEmpty($request->headers);
-        $this->assertEmpty($request->uploads);
+        $this->assertTrue($request->uploads->isEmpty());
         $this->assertInstanceOf(Request\Method::CLASS, $request->method);
         $this->assertInstanceOf(Request\Url::CLASS, $request->url);
+        $this->assertTrue(isset($request->accept));
     }
 
     public function testMissingProperty()
     {
         $request = new Request();
+        $this->assertFalse(isset($request->nonesuch));
+
         $this->expectException(Exception::CLASS);
         $this->expectExceptionMessage('Sapien\Request::$nonesuch does not exist.');
         $request->nonesuch;

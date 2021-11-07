@@ -85,6 +85,11 @@ class Request extends ValueObject
         return $this->$key;
     }
 
+    public function __isset(string $key) : bool
+    {
+        return property_exists($this, $key);
+    }
+
     protected function newAccept() : Accept
     {
         return Accept::new($this);
