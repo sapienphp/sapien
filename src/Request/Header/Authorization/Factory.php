@@ -16,15 +16,23 @@ class Factory
         }
 
         $pos = strpos($header, ' ');
-        $scheme = trim(substr($header, 0, $pos));
-        $credentials = trim(substr($header, $pos + 1));
-        $class = 'Sapien\\Request\\Header\\Authorization\\Scheme\\'
-            . ucfirst(strtolower($scheme));
 
-        if (class_exists($class)) {
-            return new $class($credentials);
+        if ($pos === false) {
+            return new None();
         }
 
-        return new Generic($scheme, $credentials);
+        $scheme = trim(substr($header, 0, $pos));
+        $credentials = trim(substr($header, $pos + 1));
+
+        switch (strtolower($scheme)) {
+            case 'basic':
+                return new Scheme\Basic($credentials);
+            case 'digest':
+                return new Scheme\Digest($credentials);
+            case 'bearer':
+                return new Scheme\Bearer($credentials);
+            default:
+                return new Generic($scheme, $credentials);
+        }
     }
 }

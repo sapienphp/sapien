@@ -44,7 +44,7 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse($response->hasHeader('foo'));
 
         $response->unsetHeaders();
-        $this->assertEmpty($response->getHeaders());
+        $this->assertTrue(empty($response->getHeaders()));
 
         $response->setHeaders([
             'foo' => 'bar',
@@ -139,7 +139,7 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse($response->hasCookie('foo'));
 
         $response->unsetCookies();
-        $this->assertEmpty($response->getCookies());
+        $this->assertTrue(empty($response->getCookies()));
     }
 
     public function testHeaderCallbacks()
@@ -160,7 +160,7 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue($response->hasHeaderCallbacks());
 
         $response->unsetHeaderCallbacks();
-        $this->assertEmpty($response->getHeaderCallbacks());
+        $this->assertTrue(empty($response->getHeaderCallbacks()));
     }
 
     public function testContent()

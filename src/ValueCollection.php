@@ -35,17 +35,17 @@ abstract class ValueCollection extends ValueObject implements ArrayAccess, Count
         return isset($this->items[$key]);
     }
 
-    public function offsetGet(mixed $key): mixed
+    public function offsetGet(mixed $key) : mixed
     {
         return $this->items[$key];
     }
 
-    public function offsetSet(mixed $key, mixed $value): void
+    public function offsetSet(mixed $key, mixed $value) : void
     {
         throw new Exception(get_class($this) . ' is readonly');
     }
 
-    public function offsetUnset(mixed $key): void
+    public function offsetUnset(mixed $key) : void
     {
         throw new Exception(get_class($this) . ' is readonly');
     }

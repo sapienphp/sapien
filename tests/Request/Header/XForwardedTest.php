@@ -42,7 +42,7 @@ class XForwardedTest extends \PHPUnit\Framework\TestCase
     {
         $_SERVER = [];
         $request = new Request();
-        $this->assertEmpty($request->xForwarded->for);
+        $this->assertTrue(empty($request->xForwarded->for));
         $this->assertNull($request->xForwarded->host);
         $this->assertNull($request->xForwarded->proto);
         $this->assertNull($request->xForwarded->port);

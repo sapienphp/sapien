@@ -9,7 +9,7 @@ class UploadsTest extends \PHPUnit\Framework\TestCase
     {
         $_FILES = null;
         $request = new Request();
-        $this->assertEmpty($request->uploads);
+        $this->assertTrue($request->uploads->isEmpty());
     }
 
     public function testTrivial()

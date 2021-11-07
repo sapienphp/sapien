@@ -18,7 +18,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
     {
         $request = new Request();
         $this->assertInstanceOf(Request::CLASS, $request);
-        $this->assertEmpty($request->headers);
+        $this->assertTrue(empty($request->headers));
         $this->assertTrue($request->uploads->isEmpty());
         $this->assertInstanceOf(Request\Method::CLASS, $request->method);
         $this->assertInstanceOf(Request\Url::CLASS, $request->url);
