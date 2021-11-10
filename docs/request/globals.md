@@ -23,9 +23,9 @@ $searchTerm = $request->query['q'] ?? '';
 
 ## JSON Decoding
 
-The `$_POST` superglobal is populated only when PHP can decode the content
-body as `application/x-www-form-urlencoded`. However, it is often the case
-that content bodies are JSON encoded instead.
+The `$_POST` superglobal is populated by PHP when it can decode the content
+body as `application/x-www-form-urlencoded` or `multipart/form-data`.
+However, it is often the case that content bodies are JSON encoded instead.
 
 Thus, as a convenience, if the _Request_ `content-type` is `application/json`,
 then `$request->input` will be an array computed by applying `json_decode()` to
