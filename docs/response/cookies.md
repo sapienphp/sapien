@@ -66,6 +66,8 @@ Resets the _Response_ cookies to the key-value pairs of `$cookies`. The value
 may be a string, in which case the value will be encoded, or it may be a
 _Cookie_ instance, in which case it will be retained as-is.
 
+The method is fluent, allowing you to chain a call to another _Response_ method.
+
 ## Getting
 
 ### Getting One Cookie
