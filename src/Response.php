@@ -124,7 +124,7 @@ class Response
 
     final public function setCookie(
         string $name,
-        string $value = '',
+        string|Cookie $value = '',
         int $expires = null,
         string $path = null,
         string $domain = null,
@@ -133,6 +133,11 @@ class Response
         string $samesite = null
     ) : static
     {
+        if ($value instanceof Cookie) {
+            $this->cookies[$name] = $value;
+            return $this;
+        }
+
         $this->cookies[$name] = new Cookie(
             'setcookie',
             $value,
@@ -191,6 +196,17 @@ class Response
     final public function getCookies() : array
     {
         return $this->cookies;
+    }
+
+    final public function setCookies(array $cookies) : static
+    {
+        $this->cookies = [];
+
+        foreach ($cookies as $name => $value) {
+            $this->setCookie($name, $value);
+        }
+
+        return $this;
     }
 
     final public function getCookie(string $name) : ?Cookie

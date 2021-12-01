@@ -130,8 +130,8 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($expect, $response->getCookie('baz')->asArray());
 
         $expect = ['foo', 'baz'];
-        $actual = array_keys($response->getCookies());
-        $this->assertSame($expect, $actual);
+        $cookies = $response->getCookies();
+        $this->assertSame($expect, array_keys($cookies));
 
 
         $this->assertTrue($response->hasCookie('foo'));
@@ -140,6 +140,9 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
 
         $response->unsetCookies();
         $this->assertTrue(empty($response->getCookies()));
+
+        $response->setCookies($cookies);
+        $this->assertEquals($cookies, $response->getCookies());
     }
 
     public function testHeaderCallbacks()
