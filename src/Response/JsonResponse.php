@@ -29,6 +29,28 @@ class JsonResponse extends Response
         return parent::setContent($value);
     }
 
+    public function setJsonFlags(int $flags) : static
+    {
+        $this->flags = $flags;
+        return $this;
+    }
+
+    public function getJsonFlags() : int
+    {
+        return $this->flags;
+    }
+
+    public function setJsonDepth(int $depth) : static
+    {
+        $this->depth = $depth;
+        return $this;
+    }
+
+    public function getJsonDepth() : int
+    {
+        return $this->depth;
+    }
+
     protected function sendContent() : void
     {
         echo json_encode(
