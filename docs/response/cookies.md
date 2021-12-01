@@ -44,6 +44,28 @@ the various options expanded out to method parameters.
 
 The method is fluent, allowing you to chain a call to another _Response_ method.
 
+### Setting One Cookie Instance
+
+```
+final public setCookie(
+    string $name,
+    Cookie $value
+) : static
+```
+
+If you have a _Cookie_ instance in hand, you may set it into the _Reponse_ using
+`setCookie()`.
+
+The method is fluent, allowing you to chain a call to another _Response_ method.
+
+### Setting All Cookies
+
+`final public setCookies(array $cookies) : static`
+
+Resets the _Response_ cookies to the key-value pairs of `$cookies`. The value
+may be a string, in which case the value will be encoded, or it may be a
+_Cookie_ instance, in which case it will be retained as-is.
+
 ## Getting
 
 ### Getting One Cookie

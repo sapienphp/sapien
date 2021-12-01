@@ -77,5 +77,8 @@ $jsonResponse->setJson(
 In any case, you may always modify the _JsonResponse_ values after
 `setContent()` or `setJson()`.
 
+Further, you may call `setJsonFlags()` and `setJsonDepth()` to modify the
+flags and depth respectively.
+
 Finally, when you actually `send()` it, the _JsonResponse_ will echo the
 results passing the content through `json_encode()`.
