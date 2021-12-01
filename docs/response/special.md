@@ -57,7 +57,7 @@ $jsonResponse = new JsonResponse();
 $jsonResponse->setContent(['foo' => 'bar']);
 ```
 
-The _JsonResponse_ will set itself up to with ...
+The _JsonResponse_ will set itself up with ...
 
 - a `content-type` of `application/json`,
 - the default `json_encode()` flags and depth.
