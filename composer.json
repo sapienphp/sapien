@@ -20,8 +20,9 @@
     },
     "require-dev": {
         "ext-xdebug": "*",
+        "pds/composer-script-names": "^1.0",
         "pds/skeleton": "^1.0",
-        "phpunit/phpunit": "^9.5",
+        "phpunit/phpunit": "^10.0",
         "phpstan/phpstan": "^1.0"
     },
     "autoload": {
@@ -35,7 +36,8 @@
         }
     },
     "scripts": {
-        "test": "./vendor/bin/phpunit",
-        "stan": "./vendor/bin/phpstan analyze -c phpstan.neon src"
+        "analyze": "./vendor/bin/phpstan analyze -c phpstan.neon",
+        "check": "composer test && composer analyze",
+        "test": "./vendor/bin/phpunit"
     }
 }
