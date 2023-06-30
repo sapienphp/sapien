@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Sapien;
 
 class ValueObjectTest extends \PHPUnit\Framework\TestCase

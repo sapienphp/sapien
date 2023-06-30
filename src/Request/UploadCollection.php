@@ -6,6 +6,17 @@ namespace Sapien\Request;
 use Sapien\Request;
 use Sapien\ValueCollection;
 
+/**
+ * @phpstan-type FileArray array{
+ *    name:string,
+ *    full_path:string,
+ *    type:string,
+ *    size:string,
+ *    tmp_name:string|mixed[],
+ *    error:string
+ * }
+ * @method Upload|UploadCollection[] offsetGet(mixed $key)
+ */
 class UploadCollection extends ValueCollection
 {
     static public function new(Request $request) : static
@@ -16,6 +27,7 @@ class UploadCollection extends ValueCollection
 
         $items = [];
 
+        /** @var FileArray $file */
         foreach ($request->files as $key => $file) {
             $items[$key] = static::newFromFile($file);
         }
@@ -23,6 +35,9 @@ class UploadCollection extends ValueCollection
         return new static($items);
     }
 
+    /**
+     * @param FileArray $file
+     */
     static protected function newFromFile(array $file) : static|Upload
     {
         if (is_array($file['tmp_name'])) {
@@ -30,29 +45,36 @@ class UploadCollection extends ValueCollection
         }
 
         return new Upload(
-            $file['name'] ?? null,
-            $file['full_path'] ?? null,
-            $file['type'] ?? null,
-            $file['size'] ?? null,
-            $file['tmp_name'] ?? null,
-            $file['error'] ?? null
+            $file['name'],
+            $file['full_path'],
+            $file['type'],
+            $file['size'],
+            $file['tmp_name'],
+            $file['error']
         );
     }
 
+    /**
+     * @param mixed[] $nested
+     */
     static protected function newFromNested(array $nested) : static
     {
         $items = [];
-        $keys = array_keys($nested['tmp_name']);
+        $keys = array_keys((array) $nested['tmp_name']);
 
         foreach ($keys as $key) {
-            $items[$key] = static::newFromFile([
+
+            /** @var FileArray $file */
+            $file = [
                 'name' => $nested['name'][$key] ?? null,
                 'full_path' => $nested['full_path'][$key] ?? null,
                 'type' => $nested['type'][$key] ?? null,
                 'size' => $nested['size'][$key] ?? null,
                 'tmp_name' => $nested['tmp_name'][$key] ?? null,
                 'error' => $nested['error'][$key] ?? null,
-            ]);
+            ];
+
+            $items[$key] = static::newFromFile($file);
         }
 
         return new static($items);

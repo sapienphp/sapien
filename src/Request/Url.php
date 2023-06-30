@@ -7,8 +7,23 @@ use Sapien\Request;
 use Sapien\ValueObject;
 use Stringable;
 
+/**
+ * @phpstan-type UrlArray array{
+ *    scheme?:string,
+ *    host?:string,
+ *    port?:int,
+ *    user?:string,
+ *    pass?:string,
+ *    path?:string,
+ *    query?:string,
+ *    fragment?:string
+ * }
+ */
 class Url extends ValueObject implements Stringable
 {
+    /**
+     * @param ?UrlArray $url
+     */
     static public function new(Request $request, ?array $url) : static
     {
         if ($url !== null) {

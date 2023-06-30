@@ -1,6 +1,10 @@
 <?php
+declare(strict_types=1);
+
 namespace Sapien;
 
+use Sapien\Response\Cookie;
+use Sapien\Response\Header;
 use SplFileObject;
 
 class ResponseTest extends \PHPUnit\Framework\TestCase
@@ -23,18 +27,25 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
         $this->assertSame(123, $response->getCode());
     }
 
+    protected function assertHeader(Response $response, string $label, string $expect) : void
+    {
+        /** @var Header */
+        $actual = $response->getHeader($label);
+        $this->assertSame($expect, $actual->value);
+    }
+
     public function testHeaders() : void
     {
         $response = new Response();
 
         $response->setHeader('FOO', 'bar');
-        $this->assertSame('bar', $response->getHeader('foo')->value);
+        $this->assertHeader($response, 'foo', 'bar');
 
         $response->addHeader('foo', 'baz');
-        $this->assertSame('bar, baz', $response->getHeader('foo')->value);
+        $this->assertHeader($response, 'foo', 'bar, baz');
 
         $response->addHeader('dib', 'zim');
-        $this->assertSame('zim', $response->getHeader('dib')->value);
+        $this->assertHeader($response, 'dib', 'zim');
 
         $headers = $response->getHeaders();
         $this->assertCount(2, $response->getHeaders());
@@ -55,15 +66,15 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
         $headers = $response->getHeaders();
         $this->assertCount(3, $response->getHeaders());
 
-        $this->assertSame('bar', $response->getHeader('foo')->value);
-        $this->assertSame('dib', $response->getHeader('baz')->value);
-        $this->assertSame('gir', $response->getHeader('zim')->value);
+        $this->assertHeader($response, 'foo', 'bar');
+        $this->assertHeader($response, 'baz', 'dib');
+        $this->assertHeader($response, 'zim', 'gir');
     }
 
     /**
      * @dataProvider provideBadHeaderLabel
      */
-    public function testBadHeaderLabel($method, $label, $value) : void
+    public function testBadHeaderLabel(string $method, string $label, string $value) : void
     {
         $response = new Response();
         $this->expectException(Exception::CLASS);
@@ -71,7 +82,10 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
         $response->$method($label, $value);
     }
 
-    public static function provideBadHeaderLabel()
+    /**
+     * @return array<int, array{string, string, string}>
+     */
+    public static function provideBadHeaderLabel() : array
     {
         return [
             ['setHeader', '', 'value'],
@@ -82,7 +96,7 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
     /**
      * @dataProvider provideBadHeaderValue
      */
-    public function testBadHeaderValue($method, $label, $value) : void
+    public function testBadHeaderValue(string $method, string $label, string $value) : void
     {
         $response = new Response();
         $this->expectException(Exception::CLASS);
@@ -90,7 +104,10 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
         $response->$method($label, $value);
     }
 
-    public static function provideBadHeaderValue()
+    /**
+     * @return array<int, array{string, string, string}>
+     */
+    public static function provideBadHeaderValue() : array
     {
         return [
             ['setHeader', 'label', ''],
@@ -114,7 +131,9 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
             ],
         ];
 
-        $this->assertSame($expect, $response->getCookie('foo')->asArray());
+        /** @var Cookie */
+        $actual = $response->getCookie('foo');
+        $this->assertSame($expect, $actual->asArray());
 
         $response->setRawCookie(
             name: 'baz',
@@ -128,7 +147,9 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
             ],
         ];
 
-        $this->assertSame($expect, $response->getCookie('baz')->asArray());
+        /** @var Cookie */
+        $actual = $response->getCookie('baz');
+        $this->assertSame($expect, $actual->asArray());
 
         $expect = ['foo', 'baz'];
         $cookies = $response->getCookies();
@@ -164,7 +185,7 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue($response->hasHeaderCallbacks());
 
         $response->unsetHeaderCallbacks();
-        $this->assertTrue(empty($response->getHeaderCallbacks()));
+        $this->assertCount(0, $response->getHeaderCallbacks());
     }
 
     public function testContent() : void

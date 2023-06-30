@@ -14,12 +14,21 @@ class Response
 
     private ?int $code = null;
 
+    /**
+     * @var array<string, Header>
+     */
     private array $headers = [];
 
+    /**
+     * @var array<string, Cookie>
+     */
     private array $cookies = [];
 
     private mixed $content = null;
 
+    /**
+     * @var callable[]
+     */
     private array $headerCallbacks = [];
 
     final public function setVersion(?string $version) : static
@@ -88,6 +97,9 @@ class Response
         return $this;
     }
 
+    /**
+     * @param array<string, Header|string> $headers
+     */
     final public function setHeaders(array $headers) : static
     {
         $this->headers = [];
@@ -105,6 +117,9 @@ class Response
         return $this;
     }
 
+    /**
+     * @return array<string, Header>
+     */
     final public function getHeaders() : array
     {
         return $this->headers;
@@ -193,11 +208,17 @@ class Response
         return $this;
     }
 
+    /**
+     * @return array<string, Cookie>
+     */
     final public function getCookies() : array
     {
         return $this->cookies;
     }
 
+    /**
+     * @param array<string, string|Cookie> $cookies
+     */
     final public function setCookies(array $cookies) : static
     {
         $this->cookies = [];
@@ -219,6 +240,9 @@ class Response
         return isset($this->cookies[$name]);
     }
 
+    /**
+     * @param callable[] $headerCallbacks
+     */
     final public function setHeaderCallbacks(array $headerCallbacks) : static
     {
         $this->headerCallbacks = [];
@@ -236,6 +260,9 @@ class Response
         return $this;
     }
 
+    /**
+     * @return callable[]
+     */
     final public function getHeaderCallbacks() : array
     {
         return $this->headerCallbacks;

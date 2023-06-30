@@ -111,6 +111,9 @@ class Content extends ValueObject
         return $this->body ?? (string) file_get_contents('php://input');
     }
 
+    /**
+     * @return mixed[]
+     */
     public function getParsedBody() : ?array
     {
         if (strtolower($this->type ?? '') !== 'application/json') {

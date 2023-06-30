@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Sapien\Response;
 
 use Sapien\Exception;
@@ -14,6 +16,6 @@ class HeaderTest extends \PHPUnit\Framework\TestCase
 
         $this->expectException(Exception::CLASS);
         $this->expectExceptionMessage('Sapien\Response\Header::$nonesuch does not exist.');
-        $header->nonesuch;
+        $header->nonesuch; // @phpstan-ignore-line intentional get of undefined property
     }
 }

@@ -24,6 +24,9 @@ abstract class AcceptCollection extends ValueCollection
         return new static($items);
     }
 
+    /**
+     * @return mixed[]
+     */
     static protected function parse(string $header) : array
     {
         if (trim($header) === '') {

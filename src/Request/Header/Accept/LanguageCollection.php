@@ -5,10 +5,14 @@ namespace Sapien\Request\Header\Accept;
 
 class LanguageCollection extends AcceptCollection
 {
+    /**
+     * @return mixed[]
+     */
     static protected function parse(string $string) : array
     {
         $items = parent::parse($string);
 
+        /** @var array{value:string, type:string, subtype:string} $item */
         foreach ($items as &$item) {
             $parts = explode('-', $item['value']);
             $item['type'] = array_shift($parts);

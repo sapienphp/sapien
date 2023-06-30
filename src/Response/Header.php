@@ -7,6 +7,9 @@ use Sapien\Exception;
 use Sapien\ValueObject;
 use Stringable;
 
+/**
+ * @property-read string $value
+ */
 class Header extends ValueObject implements Stringable
 {
     protected string $value;

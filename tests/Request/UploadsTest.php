@@ -1,18 +1,20 @@
 <?php
+declare(strict_types=1);
+
 namespace Sapien\Request;
 
 use Sapien\Request;
 
 class UploadsTest extends \PHPUnit\Framework\TestCase
 {
-    public function testNoFiles()
+    public function testNoFiles() : void
     {
         $_FILES = null;
         $request = new Request();
         $this->assertTrue($request->uploads->isEmpty());
     }
 
-    public function testTrivial()
+    public function testTrivial() : void
     {
         $request = new Request(globals: ['_FILES' => $this->trivialFiles()]);
         $uploads = $request->uploads;
@@ -26,21 +28,23 @@ class UploadsTest extends \PHPUnit\Framework\TestCase
             'error' => 4,
         ];
 
-        $this->assertSame($expect, $uploads['foo1']->asArray());
-        $this->assertSame($expect, $uploads['foo2']->asArray());
-        $this->assertSame($expect, $uploads['foo3']->asArray());
-        $this->assertSame($expect, $uploads['bar'][0]->asArray());
-        $this->assertSame($expect, $uploads['bar'][1]->asArray());
-        $this->assertSame($expect, $uploads['bar'][2]->asArray());
-        $this->assertSame($expect, $uploads['baz']['baz1']->asArray());
-        $this->assertSame($expect, $uploads['baz']['baz2']->asArray());
-        $this->assertSame($expect, $uploads['baz']['baz3']->asArray());
+        $this->assertUpload($expect, $uploads, 'foo1');
+        $this->assertUpload($expect, $uploads, 'foo2');
+        $this->assertUpload($expect, $uploads, 'foo3');
+        $this->assertUpload($expect, $uploads, 'bar', 0);
+        $this->assertUpload($expect, $uploads, 'bar', 1);
+        $this->assertUpload($expect, $uploads, 'bar', 2);
+        $this->assertUpload($expect, $uploads, 'baz', 'baz1');
+        $this->assertUpload($expect, $uploads, 'baz', 'baz2');
+        $this->assertUpload($expect, $uploads, 'baz', 'baz3');
 
-        $actual = $request->uploads['foo1']->move('/tmp');
+        /** @var Upload */
+        $upload = $request->uploads['foo1'];
+        $actual = $upload->move('/tmp');
         $this->assertFalse($actual);
     }
 
-    public function testComplex()
+    public function testComplex() : void
     {
         $request = new Request(globals: ['_FILES' => $this->complexFiles()]);
         $uploads = $request->uploads;
@@ -54,7 +58,9 @@ class UploadsTest extends \PHPUnit\Framework\TestCase
             'error' => 4,
         ];
 
-        $this->assertSame($expect, $uploads['foo']->asArray());
+        /** @var Upload */
+        $actual = $uploads['foo'];
+        $this->assertSame($expect, $actual->asArray());
 
         foreach ([1, 2, 3] as $i) {
             foreach (['a', 'b', 'c'] as $j) {
@@ -70,12 +76,52 @@ class UploadsTest extends \PHPUnit\Framework\TestCase
                 $k1 = "dib{$i}";
                 $k2 = "dib{$i}{$j}";
 
-                $this->assertSame($expect, $uploads['dib'][$k1][$k2]->asArray());
+                $this->assertUpload($expect, $uploads, 'dib', $k1, $k2);
             }
         }
     }
 
-    public function trivialFiles()
+    /**
+     * @param mixed[] $expect
+     */
+    protected function assertUpload(
+        array $expect,
+        UploadCollection $uploads,
+        int|string $key,
+        int|string ...$subkeys
+    ) : void
+    {
+        /** @var Upload $actual */
+        $actual = $uploads[$key];
+
+        while ($subkeys) {
+            /** @var UploadCollection $actual */
+
+            $subkey = array_shift($subkeys);
+
+            if ($subkeys) {
+                /** @var UploadCollection $sub */
+                $sub = $actual[$subkey];
+
+                /** @var UploadCollection $actual */
+                $actual = $sub;
+                continue;
+            }
+
+            /** @var UploadCollection $sub */
+            $sub = $actual[$subkey];
+
+            /** @var Upload $actual */
+            $actual = $sub;
+        }
+
+        $this->assertSame($expect, $actual->asArray());
+    }
+
+    /**
+     * @return mixed[]
+     */
+    public function trivialFiles() : array
     {
         return [
             'foo1' => [
@@ -169,6 +215,9 @@ class UploadsTest extends \PHPUnit\Framework\TestCase
         ];
     }
 
+    /**
+     * @return mixed[]
+     */
     protected function complexFiles() : array
     {
         return [

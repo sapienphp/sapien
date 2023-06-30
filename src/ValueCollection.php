@@ -11,6 +11,9 @@ use Traversable;
 
 abstract class ValueCollection extends ValueObject implements ArrayAccess, Countable, IteratorAggregate
 {
+    /**
+     * @param mixed[] $items
+     */
     public function __construct(protected readonly array $items = [])
     {
     }

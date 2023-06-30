@@ -1,8 +1,13 @@
 <?php
+declare(strict_types=1);
+
 namespace Sapien\Request;
 
 use Sapien\Request;
 
+/**
+ * @phpstan-import-type UrlArray from Url
+ */
 class UrlTest extends \PHPUnit\Framework\TestCase
 {
     public function testExplicit() : void
@@ -118,11 +123,18 @@ class UrlTest extends \PHPUnit\Framework\TestCase
      */
     public function testString(string $expect) : void
     {
-        $request = new Request(url: parse_url($expect));
+        /**
+         * @var UrlArray
+         */
+        $url = parse_url($expect);
+        $request = new Request(url: $url);
         $this->assertSame($expect, (string) $request->url);
     }
 
-    public static function provideString()
+    /**
+     * @return array<int, array{string}>
+     */
+    public static function provideString() : array
     {
         return [
             ['http://user:pass@example.com:8000/foo?bar=baz#dib'],

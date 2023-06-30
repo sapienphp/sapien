@@ -7,4 +7,3 @@ parameters:
         - "#Unsafe usage of new static\\(\\).#"
         - "#Class Sapien\\\\Request has an uninitialized readonly property #"
     checkGenericClassInNonGenericObjectType: false
-    checkMissingIterableValueType: false

@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Sapien\Response;
 
 use Sapien\Exception;

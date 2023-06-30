@@ -13,9 +13,11 @@ use Sapien\Request\UploadCollection;
 use Sapien\Request\Url;
 
 /**
+ * @phpstan-type stringy int|float|string|null
+ * @phpstan-import-type UrlArray from Url
  * @property-read Accept $accept
  * @property-read Authorization\Scheme $authorization
- * @property-read Forwarded[] $forwarded
+ * @property-read ForwardedCollection $forwarded
  * @property-read XForwarded $xForwarded
  */
 class Request extends ValueObject
@@ -26,20 +28,38 @@ class Request extends ValueObject
 
     public readonly Content $content;
 
+    /**
+     * @var array<string, string>
+     */
     public readonly array $cookies;
 
+    /**
+     * @var mixed[]
+     */
     public readonly array $files;
 
     private readonly ForwardedCollection $forwarded;
 
+    /**
+     * @var array<string, string>
+     */
     public readonly array $headers;
 
+    /**
+     * @var mixed[]
+     */
     public readonly array $input;
 
     public readonly Method $method;
 
+    /**
+     * @var array<string, string>
+     */
     public readonly array $query;
 
+    /**
+     * @var array<string, string>
+     */
     public readonly array $server;
 
     public readonly UploadCollection $uploads;
@@ -48,27 +68,43 @@ class Request extends ValueObject
 
     private readonly XForwarded $xForwarded;
 
+    /**
+     * @param mixed[] $globals
+     * @param UrlArray $url
+     */
     public function __construct(
         array $globals = null,
         string $method = null,
         array $url = null,
         Content|string|null $content = null,
     ) {
-        $this->server = $this->newGlobal($globals['_SERVER'] ?? $_SERVER);
+        /** @var array<string, string> */
+        $server = $this->newGlobal($globals['_SERVER'] ?? $_SERVER);
+        $this->server = $server;
+
         $this->headers = $this->newHeaders();
         $this->method = $this->newMethod($method);
         $this->url = $this->newUrl($url);
         $this->content = $this->newContent($content);
 
-        $this->cookies = $this->newGlobal($globals['_COOKIE'] ?? $_COOKIE);
-        $this->files = $this->newGlobal($globals['_FILES'] ?? $_FILES);
+        /** @var array<string, string> */
+        $cookies = $this->newGlobal($globals['_COOKIE'] ?? $_COOKIE);
+        $this->cookies = $cookies;
+
+        $files = $this->newGlobal($globals['_FILES'] ?? $_FILES);
+        $this->files = $files;
+
         $this->input = $this->newGlobal(
             $globals['_POST']
             ?? $this->content->getParsedBody()
             ?? $_POST
         );
+
         $this->uploads = $this->newUploads();
-        $this->query = $this->newGlobal($globals['_GET'] ?? $_GET);
+
+        /** @var array<string, string> */
+        $query = $this->newGlobal($globals['_GET'] ?? $_GET);
+        $this->query = $query;
     }
 
     public function __get(string $key) : mixed
@@ -110,6 +146,9 @@ class Request extends ValueObject
         return ForwardedCollection::new($this);
     }
 
+    /**
+     * @return array<string, string>
+     */
     protected function newHeaders() : array
     {
         $headers = [];
@@ -135,6 +174,9 @@ class Request extends ValueObject
         return $headers;
     }
 
+    /**
+     * @return mixed[]
+     */
     final protected function newGlobal(mixed $value) : array
     {
         if (! is_array($value)) {
@@ -176,6 +218,9 @@ class Request extends ValueObject
         return UploadCollection::new($this);
     }
 
+    /**
+     * @param ?UrlArray $url
+     */
     protected function newUrl(?array $url) : Url
     {
         return Url::new($this, $url);

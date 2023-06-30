@@ -1,10 +1,15 @@
 <?php
+declare(strict_types=1);
+
 namespace Sapien\Response;
 
 use Sapien\Response;
 
 trait Assertions
 {
+    /**
+     * @param string[] $headers
+     */
     protected function assertSent(
         Response $response,
         int $code,

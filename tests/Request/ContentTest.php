@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Sapien\Request;
 
 use Sapien\Request;
@@ -6,7 +8,7 @@ use Sapien\Exception;
 
 class ContentTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPhpInput()
+    public function testPhpInput() : void
     {
         // need a way to fake php://input
         // only way is `php ... < file_with_post_raw.txt`
@@ -18,15 +20,15 @@ class ContentTest extends \PHPUnit\Framework\TestCase
         $this->assertNull($request->content->type);
     }
 
-    public function testNoSuchProperty()
+    public function testNoSuchProperty() : void
     {
         $request = new Request();
         $this->expectException(Exception::CLASS);
         $this->expectExceptionMessage('Sapien\Request\Content::$nonesuch does not exist.');
-        $request->content->nonesuch;
+        $request->content->nonesuch; // @phpstan-ignore-line intentional get of undefined property
     }
 
-    public function testAll()
+    public function testAll() : void
     {
         $content = 'Hello World!';
         $length = strlen($content);
@@ -47,7 +49,7 @@ class ContentTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('text/plain', $request->content->type);
     }
 
-    public function testEmptyType()
+    public function testEmptyType() : void
     {
         $_SERVER = [
             'CONTENT_TYPE' => '',
@@ -59,7 +61,7 @@ class ContentTest extends \PHPUnit\Framework\TestCase
         $this->assertNull($request->content->charset);
     }
 
-    public function testTypeButNoCharset()
+    public function testTypeButNoCharset() : void
     {
         $_SERVER = [
             'CONTENT_TYPE' => 'text/plain; foo=bar',
@@ -71,11 +73,11 @@ class ContentTest extends \PHPUnit\Framework\TestCase
         $this->assertNull($request->content->charset);
     }
 
-    public function testParsedBodyJson()
+    public function testParsedBodyJson() : void
     {
         $_SERVER = ['CONTENT_TYPE' => 'application/json;charset=utf-8'];
         $expect = ['foo' => 'bar'];
-        $request = new Request(content: json_encode($expect));
+        $request = new Request(content: (string) json_encode($expect));
         $this->assertSame($expect, $request->input);
 
         $request = new Request(content: 'null');

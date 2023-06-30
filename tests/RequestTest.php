@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Sapien;
 
 use Error;
@@ -32,13 +34,13 @@ class RequestTest extends \PHPUnit\Framework\TestCase
 
         $this->expectException(Exception::CLASS);
         $this->expectExceptionMessage('Sapien\Request::$nonesuch does not exist.');
-        $request->nonesuch;
+        $request->nonesuch; // @phpstan-ignore-line intentional get of undefined property
     }
 
     /**
      * @dataProvider provideMostGlobals
      */
-    public function testMostGlobals($GLOBAL, $prop) : void
+    public function testMostGlobals(string $GLOBAL, string $prop) : void
     {
         $GLOBALS[$GLOBAL] = ['foo' => 'bar'];
         $request = new Request();
@@ -56,6 +58,9 @@ class RequestTest extends \PHPUnit\Framework\TestCase
         $request->$prop['zim'] = 'doom';
     }
 
+    /**
+     * @return array<int, array{string, string}>
+     */
     public static function provideMostGlobals() : array
     {
         return [
@@ -102,7 +107,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
 
         $this->expectException(Error::CLASS);
         $this->expectExceptionMessage('Cannot modify readonly property Sapien\Request::$files');
-        $request->files['zim'] = 'doom';
+        $request->files['zim'] = 'doom'; // @phpstan-ignore-line intentional set of readonly property
     }
 
     public function testImmutable() : void

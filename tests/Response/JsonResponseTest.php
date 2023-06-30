@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Sapien\Response;
 
 class JsonResponseTest extends \PHPUnit\Framework\TestCase
@@ -22,7 +24,7 @@ class JsonResponseTest extends \PHPUnit\Framework\TestCase
             [
                 'content-type: application/json'
             ],
-            json_encode(['Hello ', 'World!'])
+            (string) json_encode(['Hello ', 'World!'])
         );
     }
 }

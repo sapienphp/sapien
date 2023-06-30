@@ -7,6 +7,9 @@ use Sapien\ValueObject;
 
 class Language extends ValueObject
 {
+    /**
+     * @param mixed[] $params
+     */
     public function __construct(
         public readonly string $value,
         public readonly string $type,

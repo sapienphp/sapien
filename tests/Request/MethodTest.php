@@ -1,11 +1,13 @@
 <?php
+declare(strict_types=1);
+
 namespace Sapien\Request;
 
 use Sapien\Request;
 
 class MethodTest extends \PHPUnit\Framework\TestCase
 {
-    public function testTypical()
+    public function testTypical() : void
     {
         $_SERVER['REQUEST_METHOD'] = 'GET';
         $request = new Request();
@@ -15,7 +17,7 @@ class MethodTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse($request->method->is('post'));
     }
 
-    public function testOverride()
+    public function testOverride() : void
     {
         $_SERVER['REQUEST_METHOD'] = 'POST';
         $_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE'] = 'PATCH';
@@ -23,13 +25,13 @@ class MethodTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('PATCH', $request->method->name);
     }
 
-    public function testExplicit()
+    public function testExplicit() : void
     {
         $request = new Request(method: 'DELETE');
         $this->assertSame('DELETE', $request->method->name);
     }
 
-    public function testEmpty()
+    public function testEmpty() : void
     {
         $_SERVER = [];
         $request = new Request();

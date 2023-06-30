@@ -19,6 +19,9 @@ class XForwarded extends ValueObject
         );
     }
 
+    /**
+     * @return array<int, string>
+     */
     static protected function newFor(Request $request) : array
     {
         if (! isset($request->headers['x-forwarded-for'])) {
@@ -79,6 +82,9 @@ class XForwarded extends ValueObject
         return trim($request->headers['x-forwarded-prefix']);
     }
 
+    /**
+     * @param array<int, string> $for
+     */
     public function __construct(
         public readonly ?array $for,
         public readonly ?string $proto,

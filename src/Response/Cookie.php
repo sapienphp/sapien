@@ -5,14 +5,34 @@ namespace Sapien\Response;
 
 use Sapien\ValueObject;
 
+/**
+ * @phpstan-type CookieOptionsArray array{
+ *    expires:null|int|numeric-string,
+ *    path:null|string,
+ *    domain:null|string,
+ *    secure:null|bool,
+ *    httponly:null|bool,
+ *    samesite:null|string
+ * }
+ */
 class Cookie extends ValueObject
 {
+    /**
+     * @var callable-string
+     */
     public readonly string $func;
 
     public readonly string $value;
 
+    /**
+     * @var CookieOptionsArray
+     */
     public readonly array $options;
 
+    /**
+     * @param callable-string $func
+     * @param CookieOptionsArray $options
+     */
     public function __construct(
         string $func,
         string $value,
@@ -28,6 +48,9 @@ class Cookie extends ValueObject
         $this->options = $options;
     }
 
+    /**
+     * @param CookieOptionsArray $options
+     */
     protected function parseOption(
         array &$options,
         mixed $key,

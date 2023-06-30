@@ -28,6 +28,9 @@ abstract class ValueObject
         throw new Exception("{$class}::\${$key} does not exist.");
     }
 
+    /**
+     * @return mixed[]
+     */
     public function asArray() : array
     {
         $vars = get_object_vars($this);
