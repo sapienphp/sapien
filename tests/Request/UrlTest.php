@@ -5,7 +5,7 @@ use Sapien\Request;
 
 class UrlTest extends \PHPUnit\Framework\TestCase
 {
-    public function testExplicit()
+    public function testExplicit() : void
     {
         $request = new Request(url: [
             'scheme' => 'http',
@@ -29,7 +29,7 @@ class UrlTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($expect, $request->url->asArray());
     }
 
-    public function testTypical()
+    public function testTypical() : void
     {
         $_SERVER = [
             'HTTP_HOST' => 'example.com',
@@ -53,7 +53,7 @@ class UrlTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($expect, $request->url->asArray());
     }
 
-    public function testEmpty()
+    public function testEmpty() : void
     {
         $expect = [
             'scheme' => null,
@@ -75,7 +75,7 @@ class UrlTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($expect, $request->url->asArray());
     }
 
-    public function testHttps()
+    public function testHttps() : void
     {
         $_SERVER['HTTPS'] = 'on';
         $_SERVER['SERVER_NAME'] = 'example.com';
@@ -85,7 +85,7 @@ class UrlTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('example.com', $request->url->host);
     }
 
-    public function testNoHost()
+    public function testNoHost() : void
     {
         $_SERVER['REQUEST_URI'] = '/';
         $request = new Request();
@@ -102,7 +102,7 @@ class UrlTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($expect, $request->url->asArray());
     }
 
-    public function testHostPort()
+    public function testHostPort() : void
     {
         $_SERVER = [
             'HTTP_HOST' => 'example.com:8080',
@@ -116,13 +116,13 @@ class UrlTest extends \PHPUnit\Framework\TestCase
     /**
      * @dataProvider provideString
      */
-    public function testString(string $expect)
+    public function testString(string $expect) : void
     {
         $request = new Request(url: parse_url($expect));
         $this->assertSame($expect, (string) $request->url);
     }
 
-    public function provideString()
+    public static function provideString()
     {
         return [
             ['http://user:pass@example.com:8000/foo?bar=baz#dib'],

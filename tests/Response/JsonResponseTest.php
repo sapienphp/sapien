@@ -5,7 +5,7 @@ class JsonResponseTest extends \PHPUnit\Framework\TestCase
 {
     use Assertions;
 
-    public function test()
+    public function test() : void
     {
         $response = new JsonResponse();
         $response->setContent(['Hello ', 'World!']);

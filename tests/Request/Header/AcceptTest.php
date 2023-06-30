@@ -6,7 +6,7 @@ use Sapien\Request;
 
 class AcceptTest extends \PHPUnit\Framework\TestCase
 {
-    public function testTypes()
+    public function testTypes() : void
     {
         $_SERVER['HTTP_ACCEPT'] = 'application/xml;q=0.8, application/json;foo=bar, text/*;q=0.2, */*;q=0.1';
         $request = new Request();
@@ -37,7 +37,7 @@ class AcceptTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expect, $request->accept->types);
     }
 
-    public function testCharsets()
+    public function testCharsets() : void
     {
         $_SERVER['HTTP_ACCEPT_CHARSET'] = 'iso-8859-5;q=0.8, unicode-1-1';
         $request = new Request();
@@ -56,7 +56,7 @@ class AcceptTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expect, $request->accept->charsets);
     }
 
-    public function testEncodings()
+    public function testEncodings() : void
     {
         $_SERVER['HTTP_ACCEPT_ENCODING'] = 'compress;q=0.5, gzip;q=1.0';
         $request = new Request();
@@ -75,7 +75,7 @@ class AcceptTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expect, $request->accept->encodings);
     }
 
-    public function testLanguages()
+    public function testLanguages() : void
     {
         $_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'en-US, en-GB, en, *';
         $request = new Request();
@@ -112,7 +112,7 @@ class AcceptTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expect, $request->accept->languages);
     }
 
-    public function testEmpty()
+    public function testEmpty() : void
     {
         $_SERVER['HTTP_ACCEPT'] = '';
         $request = new Request();

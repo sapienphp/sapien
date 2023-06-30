@@ -6,7 +6,7 @@ use Sapien\Exception;
 
 class AuthorizationTest extends \PHPUnit\Framework\TestCase
 {
-    public function testBasic()
+    public function testBasic() : void
     {
         $_SERVER['HTTP_AUTHORIZATION'] = 'BaSiC    ' . base64_encode('boshag:bopass');
         $request = new Request();
@@ -16,7 +16,7 @@ class AuthorizationTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue($request->authorization->is('bASIc'));
     }
 
-    public function testBearer()
+    public function testBearer() : void
     {
         $_SERVER['HTTP_AUTHORIZATION'] = 'Bearer foobarbaz';
         $request = new Request();
@@ -25,7 +25,7 @@ class AuthorizationTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue($request->authorization->is('bearer'));
     }
 
-    public function testDigest()
+    public function testDigest() : void
     {
         $parts = [
             'username="boshag"',
@@ -54,7 +54,7 @@ class AuthorizationTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue($request->authorization->is('digest'));
     }
 
-    public function testNone()
+    public function testNone() : void
     {
         $request = new Request();
         $this->assertInstanceOf(Authorization\None::CLASS, $request->authorization);
@@ -66,7 +66,7 @@ class AuthorizationTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue($request->authorization->is(null));
     }
 
-    public function testGeneric()
+    public function testGeneric() : void
     {
         $_SERVER['HTTP_AUTHORIZATION'] = 'Foo barbazdib';
         $request = new Request();

@@ -3,7 +3,7 @@ namespace Sapien;
 
 class ValueCollectionTest extends \PHPUnit\Framework\TestCase
 {
-    public function test()
+    public function test() : void
     {
         $expect = [
             'foo' => 'bar',
@@ -24,14 +24,14 @@ class ValueCollectionTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse($fakeValueCollection->isEmpty());
     }
 
-    public function testOffsetSet()
+    public function testOffsetSet() : void
     {
         $fakeValueCollection = new FakeValueCollection();
         $this->expectException(Exception::CLASS);
         $fakeValueCollection['foo'] = 'bar';
     }
 
-    public function testOffsetUnset()
+    public function testOffsetUnset() : void
     {
         $fakeValueCollection = new FakeValueCollection(['foo' => 'bar']);
         $this->expectException(Exception::CLASS);

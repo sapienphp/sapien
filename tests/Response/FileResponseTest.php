@@ -8,7 +8,7 @@ class FileResponseTest extends \PHPUnit\Framework\TestCase
 {
     use Assertions;
 
-    public function test()
+    public function test() : void
     {
         $response = new FileResponse();
         $response->setContent(__DIR__ . '/fake-content.txt');
@@ -25,7 +25,7 @@ class FileResponseTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testBadContent()
+    public function testBadContent() : void
     {
         $response = new FileResponse();
         $this->expectException(Exception::CLASS);
@@ -33,7 +33,7 @@ class FileResponseTest extends \PHPUnit\Framework\TestCase
         $response->setContent(null);
     }
 
-    public function testSendWithoutContent()
+    public function testSendWithoutContent() : void
     {
         $response = new FileResponse();
         $this->expectException(Exception::CLASS);

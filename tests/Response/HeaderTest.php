@@ -5,7 +5,7 @@ use Sapien\Exception;
 
 class HeaderTest extends \PHPUnit\Framework\TestCase
 {
-    public function test()
+    public function test() : void
     {
         $header = new Header('foo');
         $this->assertSame('foo', $header->value);

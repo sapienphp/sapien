@@ -6,7 +6,7 @@ use Sapien\Exception;
 
 class XForwardedTest extends \PHPUnit\Framework\TestCase
 {
-    public function test()
+    public function test() : void
     {
         $_SERVER = [
             'HTTP_X_FORWARDED_FOR' => '1.2.3.4, 5.6.7.8, 9.10.11.12',
@@ -38,7 +38,7 @@ class XForwardedTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($expect, $request->xForwarded->prefix);
     }
 
-    public function testEmpty()
+    public function testEmpty() : void
     {
         $_SERVER = [];
         $request = new Request();

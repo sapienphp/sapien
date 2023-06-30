@@ -14,7 +14,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
         $_COOKIE = [];
     }
 
-    public function test()
+    public function test() : void
     {
         $request = new Request();
         $this->assertInstanceOf(Request::CLASS, $request);
@@ -25,7 +25,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue(isset($request->accept));
     }
 
-    public function testMissingProperty()
+    public function testMissingProperty() : void
     {
         $request = new Request();
         $this->assertFalse(isset($request->nonesuch));
@@ -56,7 +56,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
         $request->$prop['zim'] = 'doom';
     }
 
-    public function provideMostGlobals() : array
+    public static function provideMostGlobals() : array
     {
         return [
             ['_COOKIE', 'cookies'],
@@ -105,14 +105,14 @@ class RequestTest extends \PHPUnit\Framework\TestCase
         $request->files['zim'] = 'doom';
     }
 
-    public function testImmutable()
+    public function testImmutable() : void
     {
         $this->expectException(Exception::CLASS);
         $this->expectExceptionMessage('Immutable values must be null, scalar, or array.');
         $request = new Request(globals: ['_SERVER' => ['foo' => new \stdClass()]]);
     }
 
-    public function testHeaders()
+    public function testHeaders() : void
     {
         $request = new Request(
             globals: [

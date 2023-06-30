@@ -3,7 +3,7 @@ namespace Sapien\Response;
 
 class CookieTest extends \PHPUnit\Framework\TestCase
 {
-    public function test()
+    public function test() : void
     {
         $cookie = new Cookie(
             'setcookie',

@@ -58,16 +58,23 @@ class Digest extends Scheme
             }
         }
 
-        if (isset($args['nc'])) {
+        if ($args['nc'] !== null) {
             $args['nc'] = ctype_digit($args['nc']) ? (int) $args['nc'] : null;
         }
 
-        if (isset($args['userhash'])) {
+        if ($args['userhash'] !== null) {
             $args['userhash'] = (strtolower($args['userhash']) === 'true');
         }
 
-        foreach ($args as $key => $val) {
-            $this->$key = $val;
-        }
+        $this->cnonce = $args['cnonce'];
+        $this->nc = $args['nc'];
+        $this->nonce = $args['nonce'];
+        $this->opaque = $args['opaque'];
+        $this->qop = $args['qop'];
+        $this->realm = $args['realm'];
+        $this->response = $args['response'];
+        $this->uri = $args['uri'];
+        $this->userhash = $args['userhash'];
+        $this->username = $args['username'];
     }
 }

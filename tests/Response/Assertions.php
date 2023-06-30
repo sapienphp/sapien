@@ -10,7 +10,8 @@ trait Assertions
         int $code,
         array $headers,
         string $content
-    ) {
+    ) : void
+    {
         ob_start();
         $response->send();
         $output = ob_get_clean();

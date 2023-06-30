@@ -9,21 +9,21 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
 
     public const OUTPUT = 'Hello World!';
 
-    public function testVersion()
+    public function testVersion() : void
     {
         $response = new Response();
         $response->setVersion('2');
         $this->assertSame('2', $response->getVersion());
     }
 
-    public function testCode()
+    public function testCode() : void
     {
         $response = new Response();
         $response->setCode(123);
         $this->assertSame(123, $response->getCode());
     }
 
-    public function testHeaders()
+    public function testHeaders() : void
     {
         $response = new Response();
 
@@ -63,7 +63,7 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
     /**
      * @dataProvider provideBadHeaderLabel
      */
-    public function testBadHeaderLabel($method, $label, $value)
+    public function testBadHeaderLabel($method, $label, $value) : void
     {
         $response = new Response();
         $this->expectException(Exception::CLASS);
@@ -71,17 +71,18 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
         $response->$method($label, $value);
     }
 
-    public function provideBadHeaderLabel()
+    public static function provideBadHeaderLabel()
     {
         return [
             ['setHeader', '', 'value'],
-            ['addHeader', '', 'value'],        ];
+            ['addHeader', '', 'value'],
+        ];
     }
 
     /**
      * @dataProvider provideBadHeaderValue
      */
-    public function testBadHeaderValue($method, $label, $value)
+    public function testBadHeaderValue($method, $label, $value) : void
     {
         $response = new Response();
         $this->expectException(Exception::CLASS);
@@ -89,7 +90,7 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
         $response->$method($label, $value);
     }
 
-    public function provideBadHeaderValue()
+    public static function provideBadHeaderValue()
     {
         return [
             ['setHeader', 'label', ''],
@@ -97,7 +98,7 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
         ];
     }
 
-    public function testCookies()
+    public function testCookies() : void
     {
         $response = new Response();
 
@@ -145,7 +146,7 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($cookies, $response->getCookies());
     }
 
-    public function testHeaderCallbacks()
+    public function testHeaderCallbacks() : void
     {
         $response = new Response();
 
@@ -166,7 +167,7 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue(empty($response->getHeaderCallbacks()));
     }
 
-    public function testContent()
+    public function testContent() : void
     {
         $response = new Response();
         $response->setContent('foo');
@@ -174,7 +175,7 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
     }
 
 
-    public function testSend()
+    public function testSend() : void
     {
         $response = new Response();
         $response->setCode(206);
@@ -197,27 +198,27 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testSendContentIsEmpty()
+    public function testSendContentIsEmpty() : void
     {
         $response = new Response();
         $this->assertSent($response, 200, [], '');
     }
 
-    public function testSendContentIsIterable()
+    public function testSendContentIsIterable() : void
     {
         $response = new Response();
         $response->setContent(['Hello ', 'World!']);
         $this->assertSent($response, 200, [], static::OUTPUT);
     }
 
-    public function testSendContentIsResource()
+    public function testSendContentIsResource() : void
     {
         $response = new Response();
         $response->setContent(fopen(__DIR__ . '/Response/fake-content.txt', 'rb'));
         $this->assertSent($response, 200, [], static::OUTPUT);
     }
 
-    public function testSendContentIsSplFileObject()
+    public function testSendContentIsSplFileObject() : void
     {
         $response = new Response();
 
@@ -228,7 +229,7 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
         $this->assertSent($response, 200, [], static::OUTPUT);
     }
 
-    public function testSendContentIsCallableReturning()
+    public function testSendContentIsCallableReturning() : void
     {
         $response = new Response();
         $response->setContent(function () : string {
@@ -237,7 +238,7 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
         $this->assertSent($response, 200, [], static::OUTPUT);
     }
 
-    public function testSendContentIsCallableEchoing()
+    public function testSendContentIsCallableEchoing() : void
     {
         $response = new Response();
         $response->setContent(function () : void {
