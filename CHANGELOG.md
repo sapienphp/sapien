@@ -1,5 +1,9 @@
 # Change Log
 
+## NEXT
+
+This is a hygiene release, with improved static analysis typehinting.
+
 ## 1.1.0
 
 - add JsonResponse::setFlags() and setDepth()
