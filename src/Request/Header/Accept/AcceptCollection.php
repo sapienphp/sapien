@@ -8,7 +8,7 @@ use Sapien\ValueCollection;
 
 abstract class AcceptCollection extends ValueCollection
 {
-    static public function new(?string $header = null) : static
+    public static function new(?string $header = null) : static
     {
         if ($header === null) {
             return new static();
@@ -27,7 +27,7 @@ abstract class AcceptCollection extends ValueCollection
     /**
      * @return mixed[]
      */
-    static protected function parse(string $header) : array
+    protected static function parse(string $header) : array
     {
         if (trim($header) === '') {
             return [];
@@ -45,9 +45,9 @@ abstract class AcceptCollection extends ValueCollection
             foreach ($pairs as $pair) {
                 $param = [];
                 preg_match(
-                    '/^(?P<name>.+?)=(?P<quoted>"|\')?(?P<value>.*?)(?:\k<quoted>)?$/',
+                    '/^(?P<name>.+?)=(?P<quoted>"|\')?(?P<value>.*?)(?:\\k<quoted>)?$/',
                     $pair,
-                    $param
+                    $param,
                 );
                 $params[$param['name']] = $param['value'];
             }
@@ -62,7 +62,7 @@ abstract class AcceptCollection extends ValueCollection
             $buckets[$quality][] = [
                 'value' => trim($value),
                 'quality' => $quality,
-                'params' => $params
+                'params' => $params,
             ];
         }
 

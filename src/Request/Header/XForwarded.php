@@ -8,7 +8,7 @@ use Sapien\ValueObject;
 
 class XForwarded extends ValueObject
 {
-    static public function new(Request $request) : static
+    public static function new(Request $request) : static
     {
         return new static(
             for: static::newFor($request),
@@ -22,7 +22,7 @@ class XForwarded extends ValueObject
     /**
      * @return array<int, string>
      */
-    static protected function newFor(Request $request) : array
+    protected static function newFor(Request $request) : array
     {
         if (! isset($request->headers['x-forwarded-for'])) {
             return [];
@@ -38,7 +38,7 @@ class XForwarded extends ValueObject
         return $forwardedFor;
     }
 
-    static protected function newHost(Request $request) : ?string
+    protected static function newHost(Request $request) : ?string
     {
         if (! isset($request->headers['x-forwarded-host'])) {
             return null;
@@ -47,7 +47,7 @@ class XForwarded extends ValueObject
         return trim($request->headers['x-forwarded-host']);
     }
 
-    static protected function newProto(Request $request) : ?string
+    protected static function newProto(Request $request) : ?string
     {
         if (! isset($request->headers['x-forwarded-proto'])) {
             return null;
@@ -56,7 +56,7 @@ class XForwarded extends ValueObject
         return trim($request->headers['x-forwarded-proto']);
     }
 
-    static protected function newPort(Request $request) : ?int
+    protected static function newPort(Request $request) : ?int
     {
         if (! isset($request->headers['x-forwarded-port'])) {
             return null;
@@ -73,7 +73,7 @@ class XForwarded extends ValueObject
         return $port;
     }
 
-    static protected function newPrefix(Request $request) : ?string
+    protected static function newPrefix(Request $request) : ?string
     {
         if (! isset($request->headers['x-forwarded-prefix'])) {
             return null;
@@ -90,7 +90,7 @@ class XForwarded extends ValueObject
         public readonly ?string $proto,
         public readonly ?string $host,
         public readonly ?int $port,
-        public readonly ?string $prefix
+        public readonly ?string $prefix,
     ) {
     }
 }

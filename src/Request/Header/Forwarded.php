@@ -8,7 +8,7 @@ use Sapien\ValueObject;
 
 class Forwarded extends ValueObject
 {
-    static public function new(string $string) : static
+    public static function new(string $string) : static
     {
         $forward = [];
         $parts = explode(';', $string);
@@ -21,7 +21,7 @@ class Forwarded extends ValueObject
 
             list($key, $val) = explode('=', $part);
             $key = strtolower(trim($key));
-            $val = trim($val, '\t\n\r\v\"\''); // spaces and quotes
+            $val = trim($val, '\\t\\n\\r\\v\\"\'');
             $forward[$key] = $val;
         }
 

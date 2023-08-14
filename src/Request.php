@@ -81,7 +81,6 @@ class Request extends ValueObject
         /** @var array<string, string> */
         $server = $this->newGlobal($globals['_SERVER'] ?? $_SERVER);
         $this->server = $server;
-
         $this->headers = $this->newHeaders();
         $this->method = $this->newMethod($method);
         $this->url = $this->newUrl($url);
@@ -90,16 +89,10 @@ class Request extends ValueObject
         /** @var array<string, string> */
         $cookies = $this->newGlobal($globals['_COOKIE'] ?? $_COOKIE);
         $this->cookies = $cookies;
-
         $files = $this->newGlobal($globals['_FILES'] ?? $_FILES);
         $this->files = $files;
-
-        $this->input = $this->newGlobal(
-            $globals['_POST']
-            ?? $this->content->getParsedBody()
-            ?? $_POST
-        );
-
+        $input = $globals['_POST'] ?? $this->content->getParsedBody() ?? $_POST;
+        $this->input = $this->newGlobal($input);
         $this->uploads = $this->newUploads();
 
         /** @var array<string, string> */
@@ -113,12 +106,12 @@ class Request extends ValueObject
             return parent::__get($key);
         }
 
-        if (! isset($this->$key)) {
+        if (! isset($this->{$key})) {
             $method = "new{$key}";
-            $this->$key = $this->$method();
+            $this->{$key} = $this->{$method}();
         }
 
-        return $this->$key;
+        return $this->{$key};
     }
 
     public function __isset(string $key) : bool
@@ -200,12 +193,11 @@ class Request extends ValueObject
             foreach ($value as $key => $val) {
                 $value[$key] = $this->immutable($val);
             }
+
             return $value;
         }
 
-        throw new Exception(
-            "Immutable values must be null, scalar, or array."
-        );
+        throw new Exception("Immutable values must be null, scalar, or array.");
     }
 
     protected function newMethod(?string $method) : Method

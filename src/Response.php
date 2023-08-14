@@ -145,7 +145,7 @@ class Response
         string $domain = null,
         bool $secure = null,
         bool $httponly = null,
-        string $samesite = null
+        string $samesite = null,
     ) : static
     {
         if ($value instanceof Cookie) {
@@ -153,19 +153,14 @@ class Response
             return $this;
         }
 
-        $this->cookies[$name] = new Cookie(
-            'setcookie',
-            $value,
-            [
-                'expires' => $expires,
-                'path' => $path,
-                'domain' => $domain,
-                'secure' => $secure,
-                'httponly' => $httponly,
-                'samesite' => $samesite,
-            ]
-        );
-
+        $this->cookies[$name] = new Cookie('setcookie', $value, [
+            'expires' => $expires,
+            'path' => $path,
+            'domain' => $domain,
+            'secure' => $secure,
+            'httponly' => $httponly,
+            'samesite' => $samesite,
+        ]);
         return $this;
     }
 
@@ -177,22 +172,17 @@ class Response
         string $domain = null,
         bool $secure = null,
         bool $httponly = null,
-        string $samesite = null
+        string $samesite = null,
     ) : static
     {
-        $this->cookies[$name] = new Cookie(
-            'setrawcookie',
-            $value,
-            [
-                'expires' => $expires,
-                'path' => $path,
-                'domain' => $domain,
-                'secure' => $secure,
-                'httponly' => $httponly,
-                'samesite' => $samesite,
-            ]
-        );
-
+        $this->cookies[$name] = new Cookie('setrawcookie', $value, [
+            'expires' => $expires,
+            'path' => $path,
+            'domain' => $domain,
+            'secure' => $secure,
+            'httponly' => $httponly,
+            'samesite' => $samesite,
+        ]);
         return $this;
     }
 
@@ -325,10 +315,7 @@ class Response
             return;
         }
 
-        if (
-            is_callable($this->content)
-            && ! is_string($this->content)
-        ) {
+        if (is_callable($this->content) && ! is_string($this->content)) {
             echo ($this->content)();
             return;
         }
@@ -337,13 +324,11 @@ class Response
             foreach ($this->content as $output) {
                 echo $output;
             }
+
             return;
         }
 
-        if (
-            is_string($this->content)
-            || $this->content instanceof Stringable
-        ) {
+        if (is_string($this->content) || $this->content instanceof Stringable) {
             echo $this->content;
         }
     }

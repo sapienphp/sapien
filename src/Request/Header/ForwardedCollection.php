@@ -8,7 +8,7 @@ use Sapien\ValueCollection;
 
 class ForwardedCollection extends ValueCollection
 {
-    static public function new(Request $request) : static
+    public static function new(Request $request) : static
     {
         $header = $request->headers['forwarded'] ?? null;
 

@@ -23,7 +23,7 @@ class FileResponse extends Response
         string $disposition = null,
         string $name = null,
         string $type = null,
-        string $encoding = null
+        string $encoding = null,
     ) : static
     {
         if (is_string($file)) {
@@ -31,18 +31,23 @@ class FileResponse extends Response
         }
 
         parent::setContent($file);
-        $disposition ??= 'attachment';
-        $filename = rawurlencode($name ?? $file->getFilename());
-        $type ??= $this->getHeader('content-type') ?? 'application/octet-stream';
-        $encoding ??= $this->getHeader('content-transfer-encoding') ?? 'binary';
-        $size = $file->getSize();
 
-        $this->setHeader(
-            'content-disposition',
-            "{$disposition}; filename=\"{$filename}\""
-        );
+        // disposition
+        $filename = rawurlencode($name ?? $file->getFilename());
+        $disposition ??= 'attachment';
+        $disposition = "{$disposition}; filename=\"{$filename}\"";
+        $this->setHeader('content-disposition', $disposition);
+
+        // mime type
+        $type ??= $this->getHeader('content-type') ?? 'application/octet-stream';
         $this->setHeader('content-type', $type);
-        $this->setHeader('content-transfer-encoding',  $encoding);
+
+        // transfer encoding
+        $encoding ??= $this->getHeader('content-transfer-encoding') ?? 'binary';
+        $this->setHeader('content-transfer-encoding', $encoding);
+
+        // content-length
+        $size = $file->getSize();
 
         if ($size !== false) {
             $this->setHeader('content-length', (string) $size);

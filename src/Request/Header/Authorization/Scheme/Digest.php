@@ -30,7 +30,6 @@ class Digest extends Scheme
     public function __construct(string $credentials)
     {
         parent::__construct();
-
         $args = [
             'cnonce' => null,
             'nc' => null,
@@ -43,16 +42,16 @@ class Digest extends Scheme
             'userhash' => null,
             'username' => null,
         ];
-
         preg_match_all(
-            '@(\w+)\s*=\s*(?:([\'"])([^\2]+?)\2|([^\s,]+))@',
+            '@(\\w+)\\s*=\\s*(?:([\'"])([^\\2]+?)\\2|([^\\s,]+))@',
             $credentials,
             $matches,
-            PREG_SET_ORDER
+            PREG_SET_ORDER,
         );
 
         foreach ($matches as $param) {
             $key = $param[1];
+
             if (array_key_exists($key, $args)) {
                 $args[$key] = $param[3] ? $param[3] : $param[4];
             }
@@ -63,7 +62,7 @@ class Digest extends Scheme
         }
 
         if ($args['userhash'] !== null) {
-            $args['userhash'] = (strtolower($args['userhash']) === 'true');
+            $args['userhash'] = strtolower($args['userhash']) === 'true';
         }
 
         $this->cnonce = $args['cnonce'];

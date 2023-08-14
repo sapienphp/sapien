@@ -11,7 +11,7 @@ use Sapien\ValueObject;
  */
 class Content extends ValueObject
 {
-    static public function new(Request $request, mixed $body) : static
+    public static function new(Request $request, mixed $body) : static
     {
         return new static(
             body: $body,
@@ -22,7 +22,7 @@ class Content extends ValueObject
         );
     }
 
-    static protected function newCharset(Request $request) : ?string
+    protected static function newCharset(Request $request) : ?string
     {
         if (! isset($request->headers['content-type'])) {
             return null;
@@ -30,12 +30,14 @@ class Content extends ValueObject
 
         $parts = explode(';', $request->headers['content-type']);
         array_shift($parts);
+
         if (empty($parts)) {
             return null;
         }
 
         foreach ($parts as $part) {
             $part = str_replace(' ', '', $part);
+
             if (substr($part, 0, 8) === 'charset=') {
                 return $contentCharset = trim(substr($part, 8));
             }
@@ -44,7 +46,7 @@ class Content extends ValueObject
         return null;
     }
 
-    static protected function newLength(Request $request) : ?int
+    protected static function newLength(Request $request) : ?int
     {
         if (! isset($request->headers['content-length'])) {
             return null;
@@ -61,7 +63,7 @@ class Content extends ValueObject
         return $contentLength;
     }
 
-    static protected function newMd5(Request $request) : ?string
+    protected static function newMd5(Request $request) : ?string
     {
         if (! isset($request->headers['content-md5'])) {
             return null;
@@ -70,7 +72,7 @@ class Content extends ValueObject
         return trim($request->headers['content-md5']);
     }
 
-    static protected function newType(Request $request) : ?string
+    protected static function newType(Request $request) : ?string
     {
         if (! isset($request->headers['content-type'])) {
             return null;
@@ -79,7 +81,7 @@ class Content extends ValueObject
         $parts = explode(';', $request->headers['content-type']);
         $contentType = null;
         $type = array_shift($parts);
-        $regex = "/^[!#$%&'*+.^_`|~0-9A-Za-z-]+\/[!#$%&'*+.^_`|~0-9A-Za-z-]+$/";
+        $regex = "/^[!#\$%&'*+.^_`|~0-9A-Za-z-]+\\/[!#\$%&'*+.^_`|~0-9A-Za-z-]+\$/";
 
         if (preg_match($regex, $type) === 1) {
             $contentType = $type;
@@ -120,13 +122,7 @@ class Content extends ValueObject
             return null;
         }
 
-        $result = json_decode(
-            $this->getBody(),
-            true,
-            512,
-            JSON_BIGINT_AS_STRING
-        );
-
+        $result = json_decode($this->getBody(), true, 512, JSON_BIGINT_AS_STRING);
         return is_array($result) ? $result : null;
     }
 }

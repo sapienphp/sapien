@@ -9,7 +9,7 @@ use Stringable;
 
 class Method extends ValueObject implements Stringable
 {
-    static public function new(Request $request, ?string $name) : static
+    public static function new(Request $request, ?string $name) : static
     {
         if ($name !== null) {
             return new static($name);
@@ -27,10 +27,7 @@ class Method extends ValueObject implements Stringable
             $name = $server['REQUEST_METHOD'];
         }
 
-        if (
-            $name === 'POST'
-            && isset($server['HTTP_X_HTTP_METHOD_OVERRIDE'])
-        ) {
+        if ($name === 'POST' && isset($server['HTTP_X_HTTP_METHOD_OVERRIDE'])) {
             $name = $server['HTTP_X_HTTP_METHOD_OVERRIDE'];
         }
 

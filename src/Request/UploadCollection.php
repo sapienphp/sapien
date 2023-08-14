@@ -19,7 +19,7 @@ use Sapien\ValueCollection;
  */
 class UploadCollection extends ValueCollection
 {
-    static public function new(Request $request) : static
+    public static function new(Request $request) : static
     {
         if (empty($request->files)) {
             return new static();
@@ -38,7 +38,7 @@ class UploadCollection extends ValueCollection
     /**
      * @param FileArray $file
      */
-    static protected function newFromFile(array $file) : static|Upload
+    protected static function newFromFile(array $file) : static|Upload
     {
         if (is_array($file['tmp_name'])) {
             return static::newFromNested($file);
@@ -50,20 +50,19 @@ class UploadCollection extends ValueCollection
             $file['type'],
             $file['size'],
             $file['tmp_name'],
-            $file['error']
+            $file['error'],
         );
     }
 
     /**
      * @param mixed[] $nested
      */
-    static protected function newFromNested(array $nested) : static
+    protected static function newFromNested(array $nested) : static
     {
         $items = [];
         $keys = array_keys((array) $nested['tmp_name']);
 
         foreach ($keys as $key) {
-
             /** @var FileArray $file */
             $file = [
                 'name' => $nested['name'][$key] ?? null,
@@ -73,7 +72,6 @@ class UploadCollection extends ValueCollection
                 'tmp_name' => $nested['tmp_name'][$key] ?? null,
                 'error' => $nested['error'][$key] ?? null,
             ];
-
             $items[$key] = static::newFromFile($file);
         }
 

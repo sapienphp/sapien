@@ -33,11 +33,8 @@ class Cookie extends ValueObject
      * @param callable-string $func
      * @param CookieOptionsArray $options
      */
-    public function __construct(
-        string $func,
-        string $value,
-        array $options,
-    ) {
+    public function __construct(string $func, string $value, array $options)
+    {
         $this->func = $func;
         $this->value = $value;
 
@@ -51,11 +48,7 @@ class Cookie extends ValueObject
     /**
      * @param CookieOptionsArray $options
      */
-    protected function parseOption(
-        array &$options,
-        mixed $key,
-        mixed $value
-    ) : void
+    protected function parseOption(array &$options, mixed $key, mixed $value) : void
     {
         if ($value === null) {
             unset($options[$key]);
@@ -63,7 +56,7 @@ class Cookie extends ValueObject
         }
 
         switch ($key) {
-            case 'expires';
+            case 'expires':
                 settype($value, 'int');
                 $options[$key] = $value;
                 return;

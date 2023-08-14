@@ -8,7 +8,7 @@ class LanguageCollection extends AcceptCollection
     /**
      * @return mixed[]
      */
-    static protected function parse(string $string) : array
+    protected static function parse(string $string) : array
     {
         $items = parent::parse($string);
 

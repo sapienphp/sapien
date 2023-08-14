@@ -7,7 +7,7 @@ use Sapien\Request;
 
 class Factory
 {
-    static public function new(Request $request) : Scheme
+    public static function new(Request $request) : Scheme
     {
         $header = $request->headers['authorization'] ?? null;
 
@@ -27,10 +27,13 @@ class Factory
         switch (strtolower($scheme)) {
             case 'basic':
                 return new Scheme\Basic($credentials);
+
             case 'digest':
                 return new Scheme\Digest($credentials);
+
             case 'bearer':
                 return new Scheme\Bearer($credentials);
+
             default:
                 return new Generic($scheme, $credentials);
         }

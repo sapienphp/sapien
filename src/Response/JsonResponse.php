@@ -23,10 +23,8 @@ class JsonResponse extends Response
         int $depth = null,
     ) : static
     {
-        $this->setHeader(
-            'content-type',
-            $type ?? $this->getHeader('content-type') ?? 'application/json'
-        );
+        $type = $type ?? $this->getHeader('content-type') ?? 'application/json';
+        $this->setHeader('content-type', $type);
         $this->flags = $flags ?? $this->flags;
         $this->depth = $depth ?? $this->depth;
         return parent::setContent($value);
@@ -59,7 +57,7 @@ class JsonResponse extends Response
         echo json_encode(
             $this->getContent(),
             $this->flags,
-            ($this->depth <= 1) ? 1 : $this->depth
+            $this->depth <= 1 ? 1 : $this->depth,
         );
     }
 }

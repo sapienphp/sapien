@@ -31,9 +31,9 @@ class Upload extends ValueObject
         $this->name = $name;
         $this->fullPath = $fullPath;
         $this->type = $type;
-        $this->size = ($size === null) ? null : (int) $size;
+        $this->size = $size === null ? null : (int) $size;
         $this->tmpName = $tmpName;
-        $this->error = ($error === null) ? null : (int) $error;
+        $this->error = $error === null ? null : (int) $error;
     }
 
     final public function move(string $destination) : bool
