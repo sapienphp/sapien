@@ -9,7 +9,10 @@ use Countable;
 use IteratorAggregate;
 use Traversable;
 
-abstract class ValueCollection extends ValueObject implements ArrayAccess, Countable, IteratorAggregate
+abstract class ValueCollection extends ValueObject implements
+    ArrayAccess,
+    Countable,
+    IteratorAggregate
 {
     /**
      * @param mixed[] $items

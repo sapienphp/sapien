@@ -24,7 +24,7 @@
         "pds/skeleton": "^1.0",
         "phpunit/phpunit": "^10.0",
         "phpstan/phpstan": "^1.0",
-        "pmjones/php-styler": "^0.1"
+        "pmjones/php-styler": "0.x-dev"
     },
     "autoload": {
         "psr-4":  {

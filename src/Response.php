@@ -153,14 +153,18 @@ class Response
             return $this;
         }
 
-        $this->cookies[$name] = new Cookie('setcookie', $value, [
-            'expires' => $expires,
-            'path' => $path,
-            'domain' => $domain,
-            'secure' => $secure,
-            'httponly' => $httponly,
-            'samesite' => $samesite,
-        ]);
+        $this->cookies[$name] = new Cookie(
+            'setcookie',
+            $value,
+            [
+                'expires' => $expires,
+                'path' => $path,
+                'domain' => $domain,
+                'secure' => $secure,
+                'httponly' => $httponly,
+                'samesite' => $samesite,
+            ],
+        );
         return $this;
     }
 
@@ -175,14 +179,18 @@ class Response
         string $samesite = null,
     ) : static
     {
-        $this->cookies[$name] = new Cookie('setrawcookie', $value, [
-            'expires' => $expires,
-            'path' => $path,
-            'domain' => $domain,
-            'secure' => $secure,
-            'httponly' => $httponly,
-            'samesite' => $samesite,
-        ]);
+        $this->cookies[$name] = new Cookie(
+            'setrawcookie',
+            $value,
+            [
+                'expires' => $expires,
+                'path' => $path,
+                'domain' => $domain,
+                'secure' => $secure,
+                'httponly' => $httponly,
+                'samesite' => $samesite,
+            ],
+        );
         return $this;
     }
 
