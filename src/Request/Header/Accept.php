@@ -11,9 +11,7 @@ class Accept extends ValueObject
     public static function new(Request $request) : static
     {
         return new static(
-            types: Accept\TypeCollection::new(
-                $request->headers['accept'] ?? null,
-            ),
+            types: Accept\TypeCollection::new($request->headers['accept'] ?? null),
             charsets: Accept\CharsetCollection::new(
                 $request->headers['accept-charset'] ?? null,
             ),
