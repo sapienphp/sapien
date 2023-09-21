@@ -21,7 +21,7 @@ class Forwarded extends ValueObject
 
             list($key, $val) = explode('=', $part);
             $key = strtolower(trim($key));
-            $val = trim($val, '\\t\\n\\r\\v\\"\'');
+            $val = trim($val, '\t\n\r\v\"\'');
             $forward[$key] = $val;
         }
 

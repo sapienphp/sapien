@@ -45,7 +45,7 @@ abstract class AcceptCollection extends ValueCollection
             foreach ($pairs as $pair) {
                 $param = [];
                 preg_match(
-                    '/^(?P<name>.+?)=(?P<quoted>"|\')?(?P<value>.*?)(?:\\k<quoted>)?$/',
+                    '/^(?P<name>.+?)=(?P<quoted>"|\')?(?P<value>.*?)(?:\k<quoted>)?$/',
                     $pair,
                     $param,
                 );

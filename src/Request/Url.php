@@ -55,7 +55,7 @@ class Url extends ValueObject implements Stringable
         }
 
         // port
-        preg_match('#\\:[0-9]+$#', $host, $matches);
+        preg_match('#\:[0-9]+$#', $host, $matches);
 
         if ($matches) {
             $host_port = array_pop($matches);

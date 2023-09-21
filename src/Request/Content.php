@@ -81,7 +81,7 @@ class Content extends ValueObject
         $parts = explode(';', $request->headers['content-type']);
         $contentType = null;
         $type = array_shift($parts);
-        $regex = "/^[!#\$%&'*+.^_`|~0-9A-Za-z-]+\\/[!#\$%&'*+.^_`|~0-9A-Za-z-]+\$/";
+        $regex = '/^[!#$%&\'*+.^_`|~0-9A-Za-z-]+\/[!#$%&\'*+.^_`|~0-9A-Za-z-]+$/';
 
         if (preg_match($regex, $type) === 1) {
             $contentType = $type;

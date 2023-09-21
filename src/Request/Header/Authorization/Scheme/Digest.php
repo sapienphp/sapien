@@ -43,7 +43,7 @@ class Digest extends Scheme
             'username' => null,
         ];
         preg_match_all(
-            '@(\\w+)\\s*=\\s*(?:([\'"])([^\\2]+?)\\2|([^\\s,]+))@',
+            '@(\w+)\s*=\s*(?:([\'"])([^\2]+?)\2|([^\s,]+))@',
             $credentials,
             $matches,
             PREG_SET_ORDER,
