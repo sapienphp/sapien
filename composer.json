@@ -16,14 +16,14 @@
         }
     ],
     "require": {
-        "php": ">=8.1"
+        "php": "^8.1 | ^8.2 | ^8.3"
     },
     "require-dev": {
         "ext-xdebug": "*",
         "pds/composer-script-names": "^1.0",
         "pds/skeleton": "^1.0",
-        "phpunit/phpunit": "^10.0",
         "phpstan/phpstan": "^1.0",
+        "phpunit/phpunit": "^10.0",
         "pmjones/php-styler": "0.x-dev"
     },
     "autoload": {
@@ -38,8 +38,10 @@
     },
     "scripts": {
         "analyze": "./vendor/bin/phpstan analyze -c phpstan.neon",
-        "check": "composer cs-fix && composer test && composer analyze",
+        "check": "composer test && composer analyze && composer cs-check",
+        "cs-check": "./vendor/bin/php-styler check",
+        "cs-fix": "./vendor/bin/php-styler apply",
         "test": "./vendor/bin/phpunit",
-        "cs-fix": "./vendor/bin/php-styler apply"
+        "test-coverage": "./vendor/bin/phpunit --coverage-html=./tmp/coverage"
     }
 }

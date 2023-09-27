@@ -8,4 +8,5 @@ return new Config(
         __DIR__ . '/src',
     ),
     styler: new Styler(),
+    cache: __DIR__ . '/.php-styler.cache',
 );
