@@ -7,14 +7,26 @@ use Sapien\Request;
 use Sapien\ValueCollection;
 
 /**
+ * @phpstan-type FilesArray mixed[]
+ *
+ * @phpstan-type FilesArrayNested array{
+ *    name:string[],
+ *    full_path:string[],
+ *    type:string[],
+ *    size:string[],
+ *    tmp_name:string[],
+ *    error:string[]
+ * }
+ *
  * @phpstan-type FileArray array{
  *    name:string,
  *    full_path:string,
  *    type:string,
  *    size:string,
- *    tmp_name:string|mixed[],
+ *    tmp_name:string,
  *    error:string
  * }
+ *
  * @method Upload|UploadCollection[] offsetGet(mixed $key)
  */
 class UploadCollection extends ValueCollection
@@ -25,10 +37,18 @@ class UploadCollection extends ValueCollection
             return new static();
         }
 
+        return static::newFromFiles($request->files);
+    }
+
+    /**
+     * @param FilesArray $files
+     */
+    public static function newFromFiles(array $files) : static
+    {
         $items = [];
 
-        /** @var FileArray $file */
-        foreach ($request->files as $key => $file) {
+        /** @var FilesArray|FilesArrayNested|FileArray $file */
+        foreach ($files as $key => $file) {
             $items[$key] = static::newFromFile($file);
         }
 
@@ -36,14 +56,21 @@ class UploadCollection extends ValueCollection
     }
 
     /**
-     * @param FileArray $file
+     * @param FilesArray|FilesArrayNested|FileArray $file
      */
     protected static function newFromFile(array $file) : static|Upload
     {
-        if (is_array($file['tmp_name'])) {
+        if (is_array($file['tmp_name'] ?? null)) {
+            /** @var FilesArrayNested $file */
             return static::newFromNested($file);
         }
 
+        if (! is_string($file['tmp_name'] ?? null)) {
+            /** @var FilesArray $file */
+            return static::newFromFiles($file);
+        }
+
+        /** @var FileArray $file */
         return new Upload(
             $file['name'],
             $file['full_path'],
@@ -55,7 +82,7 @@ class UploadCollection extends ValueCollection
     }
 
     /**
-     * @param mixed[] $nested
+     * @param FilesArrayNested $nested
      */
     protected static function newFromNested(array $nested) : static
     {
@@ -63,7 +90,6 @@ class UploadCollection extends ValueCollection
         $keys = array_keys((array) $nested['tmp_name']);
 
         foreach ($keys as $key) {
-            /** @var FileArray $file */
             $file = [
                 'name' => $nested['name'][$key] ?? null,
                 'full_path' => $nested['full_path'][$key] ?? null,
@@ -72,6 +98,7 @@ class UploadCollection extends ValueCollection
                 'tmp_name' => $nested['tmp_name'][$key] ?? null,
                 'error' => $nested['error'][$key] ?? null,
             ];
+
             $items[$key] = static::newFromFile($file);
         }
 

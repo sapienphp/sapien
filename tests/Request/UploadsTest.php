@@ -81,6 +81,40 @@ class UploadsTest extends \PHPUnit\Framework\TestCase
         }
     }
 
+    public function testDeep() : void
+    {
+        $request = new Request(globals: [
+            '_FILES' => [
+                'profile' => [
+                    'details' => [
+                        'photo' => [
+                            'tmp_name' => '/tmp/upload/r34b5960',
+                            'error' => 0,
+                            'name' => 'hobbes.jpg',
+                            'full_path' => '/Users/watterson/Pictures/hobbes.jpg',
+                            'size' => 23456,
+                            'type' => 'image/jpeg',
+                        ],
+                    ],
+                ],
+            ]
+        ]);
+
+        $uploads = $request->uploads;
+        $this->assertCount(1, $uploads);
+
+        $expect = [
+            'name' => 'hobbes.jpg',
+            'fullPath' => '/Users/watterson/Pictures/hobbes.jpg',
+            'type' => 'image/jpeg',
+            'size' => 23456,
+            'tmpName' => '/tmp/upload/r34b5960',
+            'error' => 0,
+        ];
+
+        $this->assertUpload($expect, $uploads, 'profile', 'details', 'photo');
+    }
+
     /**
      * @param mixed[] $expect
      */
@@ -96,7 +130,6 @@ class UploadsTest extends \PHPUnit\Framework\TestCase
 
         while ($subkeys) {
             /** @var UploadCollection $actual */
-
             $subkey = array_shift($subkeys);
 
             if ($subkeys) {
