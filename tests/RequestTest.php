@@ -53,8 +53,12 @@ class RequestTest extends \PHPUnit\Framework\TestCase
         $request = new Request(globals: [$GLOBAL => $expect]);
         $this->assertSame($expect, $request->$prop);
 
+        $message = version_compare(PHP_VERSION, '8.4.0', '>=')
+            ? 'Cannot indirectly modify readonly property Sapien\Request::$' . $prop
+            : 'Cannot modify readonly property Sapien\Request::$' . $prop;
+
         $this->expectException(Error::CLASS);
-        $this->expectExceptionMessage('Cannot modify readonly property Sapien\Request::$' . $prop);
+        $this->expectExceptionMessage($message);
         $request->$prop['zim'] = 'doom';
     }
 
@@ -105,8 +109,12 @@ class RequestTest extends \PHPUnit\Framework\TestCase
         $request = new Request(globals: ['_FILES' => $expect]);
         $this->assertSame($expect, $request->files);
 
+        $message = version_compare(PHP_VERSION, '8.4.0', '>=')
+            ? 'Cannot indirectly modify readonly property Sapien\Request::$files'
+            : 'Cannot modify readonly property Sapien\Request::$files';
+
         $this->expectException(Error::CLASS);
-        $this->expectExceptionMessage('Cannot modify readonly property Sapien\Request::$files');
+        $this->expectExceptionMessage($message);
         $request->files['zim'] = 'doom'; // @phpstan-ignore-line intentional set of readonly property
     }
 

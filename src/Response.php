@@ -140,12 +140,12 @@ class Response
     final public function setCookie(
         string $name,
         string|Cookie $value = '',
-        int $expires = null,
-        string $path = null,
-        string $domain = null,
-        bool $secure = null,
-        bool $httponly = null,
-        string $samesite = null,
+        ?int $expires = null,
+        ?string $path = null,
+        ?string $domain = null,
+        ?bool $secure = null,
+        ?bool $httponly = null,
+        ?string $samesite = null,
     ) : static
     {
         if ($value instanceof Cookie) {
@@ -172,12 +172,12 @@ class Response
     final public function setRawCookie(
         string $name,
         string $value = '',
-        int $expires = null,
-        string $path = null,
-        string $domain = null,
-        bool $secure = null,
-        bool $httponly = null,
-        string $samesite = null,
+        ?int $expires = null,
+        ?string $path = null,
+        ?string $domain = null,
+        ?bool $secure = null,
+        ?bool $httponly = null,
+        ?string $samesite = null,
     ) : static
     {
         $this->cookies[$name] = new Cookie(

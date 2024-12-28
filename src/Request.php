@@ -73,9 +73,9 @@ class Request extends ValueObject
      * @param UrlArray $url
      */
     public function __construct(
-        array $globals = null,
-        string $method = null,
-        array $url = null,
+        ?array $globals = null,
+        ?string $method = null,
+        ?array $url = null,
         Content|string|null $content = null,
     ) {
         /** @var array<string, string> */

@@ -20,10 +20,10 @@ class FileResponse extends Response
 
     public function setFile(
         SplFileObject|string $file,
-        string $disposition = null,
-        string $name = null,
-        string $type = null,
-        string $encoding = null,
+        ?string $disposition = null,
+        ?string $name = null,
+        ?string $type = null,
+        ?string $encoding = null,
     ) : static
     {
         if (is_string($file)) {

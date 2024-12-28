@@ -18,9 +18,9 @@ class JsonResponse extends Response
 
     public function setJson(
         mixed $value,
-        string $type = null,
-        int $flags = null,
-        int $depth = null,
+        ?string $type = null,
+        ?int $flags = null,
+        ?int $depth = null,
     ) : static
     {
         $type = $type ?? $this->getHeader('content-type') ?? 'application/json';
