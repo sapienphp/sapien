@@ -30,6 +30,7 @@ class Digest extends Scheme
     public function __construct(string $credentials)
     {
         parent::__construct();
+
         $args = [
             'cnonce' => null,
             'nc' => null,
@@ -42,6 +43,7 @@ class Digest extends Scheme
             'userhash' => null,
             'username' => null,
         ];
+
         preg_match_all(
             '@(\w+)\s*=\s*(?:([\'"])([^\2]+?)\2|([^\s,]+))@',
             $credentials,

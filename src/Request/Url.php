@@ -76,6 +76,7 @@ class Url extends ValueObject implements Stringable
         }
 
         $url = $scheme . $host . $port . $uri;
+
         $base = [
             'scheme' => null,
             'host' => null,
@@ -86,6 +87,7 @@ class Url extends ValueObject implements Stringable
             'query' => null,
             'fragment' => null,
         ];
+
         $url = array_merge($base, (array) parse_url($url));
 
         if ($host === '___') {

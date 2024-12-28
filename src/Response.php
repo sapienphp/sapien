@@ -165,6 +165,7 @@ class Response
                 'samesite' => $samesite,
             ],
         );
+
         return $this;
     }
 
@@ -191,6 +192,7 @@ class Response
                 'samesite' => $samesite,
             ],
         );
+
         return $this;
     }
 
