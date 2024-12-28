@@ -37,7 +37,7 @@
         }
     },
     "scripts": {
-        "analyze": "./vendor/bin/phpstan analyze -c phpstan.neon",
+        "analyze": "./vendor/bin/phpstan analyze --memory-limit=1G -c phpstan.neon",
         "check": "composer test && composer analyze && composer cs-check",
         "cs-check": "./vendor/bin/php-styler check",
         "cs-fix": "./vendor/bin/php-styler apply",

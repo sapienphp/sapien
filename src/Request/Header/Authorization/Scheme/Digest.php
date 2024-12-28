@@ -51,6 +51,7 @@ class Digest extends Scheme
             PREG_SET_ORDER,
         );
 
+        /** @var array{string, string, string, string, string} $param */
         foreach ($matches as $param) {
             $key = $param[1];
 

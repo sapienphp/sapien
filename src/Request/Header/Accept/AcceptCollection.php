@@ -51,6 +51,7 @@ abstract class AcceptCollection extends ValueCollection
                     $param,
                 );
 
+                /** @var array{name:string, value:string} $param */
                 $params[$param['name']] = $param['value'];
             }
 
