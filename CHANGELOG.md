@@ -1,5 +1,13 @@
 # Change Log
 
+## 1.1.2
+
+- improve handling of deeply-grouped upload arrays
+
+- add FilesArray and FilesArrayNested phpstan types, and modifies FileArray type
+
+- remove PHP 8.4 notices by explicitly allowing nulls for implicitly nullable params
+
 ## 1.1.1
 
 This is a hygiene release, with improved static analysis typehinting
